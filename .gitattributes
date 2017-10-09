@@ -1,0 +1,6 @@
+# Ignore CRLF
+Icalendar/doc/Horde/Icalendar/examples/*.ics            -crlf
+Icalendar/doc/Horde/Icalendar/examples/*.vcs            -crlf
+Icalendar/test/Horde/Icalendar/fixtures/*.ics           -crlf
+Icalendar/test/Horde/Icalendar/fixtures/*.vcf           -crlf
+Icalendar/test/Horde/Icalendar/fixtures/vTimezone/*.ics -crlf
