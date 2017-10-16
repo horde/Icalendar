@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-07-04</date>
+ <date>2017-10-17</date>
  <version>
   <release>2.1.8</release>
   <api>2.1.0</api>
@@ -49,7 +49,6 @@
        <file name="test_recurring.vcs" role="doc" />
        <file name="vnote.txt" role="doc" />
       </dir> <!-- /doc/Horde/Icalendar/examples -->
-      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Icalendar -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -428,6 +427,7 @@
      </dir> <!-- /test/Horde/Icalendar -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
+   <file name="LICENSE" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -495,7 +495,6 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="COPYING" name="doc/Horde/Icalendar/COPYING" />
    <install as="examples/exchange.ics" name="doc/Horde/Icalendar/examples/exchange.ics" />
    <install as="examples/exdate.ics" name="doc/Horde/Icalendar/examples/exdate.ics" />
    <install as="examples/ical.ics" name="doc/Horde/Icalendar/examples/ical.ics" />
@@ -515,7 +514,7 @@
    <install as="Horde/Icalendar/Vnote.php" name="lib/Horde/Icalendar/Vnote.php" />
    <install as="Horde/Icalendar/Vtimezone.php" name="lib/Horde/Icalendar/Vtimezone.php" />
    <install as="Horde/Icalendar/Vtodo.php" name="lib/Horde/Icalendar/Vtodo.php" />
-   <install as="locale/Horde_Icalendar.pot" name="locale/Horde_Icalendar.pot" />
+   <install as="LICENSE" name="LICENSE" />
    <install as="locale/ar/LC_MESSAGES/Horde_Icalendar.mo" name="locale/ar/LC_MESSAGES/Horde_Icalendar.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Icalendar.po" name="locale/ar/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="locale/bg/LC_MESSAGES/Horde_Icalendar.mo" name="locale/bg/LC_MESSAGES/Horde_Icalendar.mo" />
@@ -548,6 +547,7 @@
    <install as="locale/gl/LC_MESSAGES/Horde_Icalendar.po" name="locale/gl/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="locale/he/LC_MESSAGES/Horde_Icalendar.mo" name="locale/he/LC_MESSAGES/Horde_Icalendar.mo" />
    <install as="locale/he/LC_MESSAGES/Horde_Icalendar.po" name="locale/he/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/Horde_Icalendar.pot" name="locale/Horde_Icalendar.pot" />
    <install as="locale/hr/LC_MESSAGES/Horde_Icalendar.mo" name="locale/hr/LC_MESSAGES/Horde_Icalendar.mo" />
    <install as="locale/hr/LC_MESSAGES/Horde_Icalendar.po" name="locale/hr/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="locale/hu/LC_MESSAGES/Horde_Icalendar.mo" name="locale/hu/LC_MESSAGES/Horde_Icalendar.mo" />
@@ -605,10 +605,6 @@
    <install as="Horde/Icalendar/bootstrap.php" name="test/Horde/Icalendar/bootstrap.php" />
    <install as="Horde/Icalendar/CharsetTest.php" name="test/Horde/Icalendar/CharsetTest.php" />
    <install as="Horde/Icalendar/ExportTest.php" name="test/Horde/Icalendar/ExportTest.php" />
-   <install as="Horde/Icalendar/FreeBusyTest.php" name="test/Horde/Icalendar/FreeBusyTest.php" />
-   <install as="Horde/Icalendar/ParseTest.php" name="test/Horde/Icalendar/ParseTest.php" />
-   <install as="Horde/Icalendar/phpunit.xml" name="test/Horde/Icalendar/phpunit.xml" />
-   <install as="Horde/Icalendar/TimezonesTest.php" name="test/Horde/Icalendar/TimezonesTest.php" />
    <install as="Horde/Icalendar/fixtures/bug7423.ics" name="test/Horde/Icalendar/fixtures/bug7423.ics" />
    <install as="Horde/Icalendar/fixtures/bug14132.ics" name="test/Horde/Icalendar/fixtures/bug14132.ics" />
    <install as="Horde/Icalendar/fixtures/bug14132_2.ics" name="test/Horde/Icalendar/fixtures/bug14132_2.ics" />
@@ -689,6 +685,10 @@
    <install as="Horde/Icalendar/fixtures/vTimezone/Vilnius.txt" name="test/Horde/Icalendar/fixtures/vTimezone/Vilnius.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/wicca.ics" name="test/Horde/Icalendar/fixtures/vTimezone/wicca.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/wicca.txt" name="test/Horde/Icalendar/fixtures/vTimezone/wicca.txt" />
+   <install as="Horde/Icalendar/FreeBusyTest.php" name="test/Horde/Icalendar/FreeBusyTest.php" />
+   <install as="Horde/Icalendar/ParseTest.php" name="test/Horde/Icalendar/ParseTest.php" />
+   <install as="Horde/Icalendar/phpunit.xml" name="test/Horde/Icalendar/phpunit.xml" />
+   <install as="Horde/Icalendar/TimezonesTest.php" name="test/Horde/Icalendar/TimezonesTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1303,7 +1303,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-07-04</date>
+   <date>2017-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
