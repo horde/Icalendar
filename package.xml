@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-10-17</date>
+ <date>2017-10-20</date>
  <version>
   <release>2.1.8</release>
   <api>2.1.0</api>
@@ -422,7 +422,6 @@
       <file name="ExportTest.php" role="test" />
       <file name="FreeBusyTest.php" role="test" />
       <file name="ParseTest.php" role="test" />
-      <file name="phpunit.xml" role="test" />
       <file name="TimezonesTest.php" role="test" />
      </dir> <!-- /test/Horde/Icalendar -->
     </dir> <!-- /test/Horde -->
@@ -687,7 +686,6 @@
    <install as="Horde/Icalendar/fixtures/vTimezone/wicca.txt" name="test/Horde/Icalendar/fixtures/vTimezone/wicca.txt" />
    <install as="Horde/Icalendar/FreeBusyTest.php" name="test/Horde/Icalendar/FreeBusyTest.php" />
    <install as="Horde/Icalendar/ParseTest.php" name="test/Horde/Icalendar/ParseTest.php" />
-   <install as="Horde/Icalendar/phpunit.xml" name="test/Horde/Icalendar/phpunit.xml" />
    <install as="Horde/Icalendar/TimezonesTest.php" name="test/Horde/Icalendar/TimezonesTest.php" />
   </filelist>
  </phprelease>
@@ -1303,7 +1301,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-10-17</date>
+   <date>2017-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
