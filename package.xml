@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-10-20</date>
+ <date>2017-10-27</date>
  <version>
   <release>2.1.8</release>
   <api>2.1.0</api>
@@ -48,6 +48,7 @@
        <file name="test_recurring.vcs" role="doc" />
        <file name="vnote.txt" role="doc" />
       </dir> <!-- /doc/Horde/Icalendar/examples -->
+      <file name="CHANGES" role="doc" />
      </dir> <!-- /doc/Horde/Icalendar -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -493,6 +494,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="CHANGES" name="doc/Horde/Icalendar/CHANGES" />
    <install as="examples/exchange.ics" name="doc/Horde/Icalendar/examples/exchange.ics" />
    <install as="examples/exdate.ics" name="doc/Horde/Icalendar/examples/exdate.ics" />
    <install as="examples/ical.ics" name="doc/Horde/Icalendar/examples/ical.ics" />
@@ -1298,7 +1300,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-10-20</date>
+   <date>2017-10-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
    </notes>
