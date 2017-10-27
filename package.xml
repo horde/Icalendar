@@ -704,7 +704,7 @@
    <date>2003-07-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-Initial release as a PEAR package
+* Initial release as a PEAR package
    </notes>
   </release>
   <release>
@@ -719,7 +719,7 @@ Initial release as a PEAR package
    <date>2004-12-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-Lots of improvements, bugfixes and support for more fields and members of the iCalendar family.
+* Lots of improvements, bugfixes and support for more fields and members of the iCalendar family.
    </notes>
   </release>
   <release>
@@ -975,7 +975,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2012-06-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* 
    </notes>
   </release>
   <release>
