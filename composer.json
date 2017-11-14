@@ -1,8 +1,8 @@
 {
     "name": "horde/icalendar",
-    "description": "iCalendar API",
+    "description": "iCalendar and vCard library",
     "type": "library",
-    "homepage": "https://pear.horde.org",
+    "homepage": "https://www.horde.org/libraries/Horde_Icalendar",
     "license": "LGPL-2.1",
     "authors": [
         {
@@ -11,18 +11,18 @@
             "role": "lead"
         },
         {
-            "name": "Chuck Hagenbuch",
-            "email": "chuck@horde.org",
-            "role": "lead"
-        },
-        {
             "name": "Michael J Rubinsky",
             "email": "mrubinsk@horde.org",
             "role": "developer"
+        },
+        {
+            "name": "Chuck Hagenbuch",
+            "email": "chuck@horde.org",
+            "role": "lead"
         }
     ],
     "version": "2.1.8",
-    "time": "2017-07-04",
+    "time": "2017-11-14",
     "repositories": [
         {
             "type": "pear",
