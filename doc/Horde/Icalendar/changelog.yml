@@ -8,9 +8,9 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
+  notes: |
+    ./
     [mjr] Fix issue that could cause loss of attribute value in iCalendar v1.0 when value is passed as an array.
-    
 2.1.7:
   api: 2.1.0
   state:
