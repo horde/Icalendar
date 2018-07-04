@@ -250,6 +250,58 @@ EOT;
         );
     }
 
+    public function testSingleCategoriesV1()
+    {
+        $date = new Horde_Date(
+            array(
+                'year' => 2010,
+                'month' => 1,
+                'mday' => 1,
+                'hour' => 1,
+                'min' => 0,
+                'sec' => 0,
+            ),
+            'UTC'
+        );
+        $ical = new Horde_Icalendar('1.0');
+        $vEvent = Horde_Icalendar::newComponent('VEVENT', $ical);
+        $vEvent->setAttribute('UID', '5b3be1a5-d1b0-43c1-bad4-6c29eebab01e');
+        $vEvent->setAttribute('CATEGORIES', null, array(), true, array('Foo'));
+        $vEvent->setAttribute('DTSTART', $date);
+        $ical->addComponent($vEvent);
+
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/single-categoryv1.ics',
+            $this->_removeDateStamp($ical->exportVCalendar())
+        );
+    }
+
+    public function testMultipleCategoriesV1()
+    {
+        $date = new Horde_Date(
+            array(
+                'year' => 2010,
+                'month' => 1,
+                'mday' => 1,
+                'hour' => 1,
+                'min' => 0,
+                'sec' => 0,
+            ),
+            'UTC'
+        );
+        $ical = new Horde_Icalendar('1.0');
+        $vEvent = Horde_Icalendar::newComponent('VEVENT', $ical);
+        $vEvent->setAttribute('UID', '5b3be1a5-d1b0-43c1-bad4-6c29eebab01e');
+        $vEvent->setAttribute('CATEGORIES', null, array(), true, array('Foo', 'Bar'));
+        $vEvent->setAttribute('DTSTART', $date);
+        $ical->addComponent($vEvent);
+
+        $this->assertStringEqualsFile(
+            __DIR__ . '/fixtures/multiple-categoryv1.ics',
+            $this->_removeDateStamp($ical->exportVCalendar())
+        );
+    }
+
     public function testDuration0()
     {
         $ical = new Horde_Icalendar;
@@ -270,6 +322,15 @@ EOT;
         $this->assertStringEqualsFile(
             __DIR__ . '/fixtures/duration0.ics',
             $ical->exportVCalendar()
+        );
+    }
+
+        private function _removeDateStamp($ics)
+    {
+        return preg_replace(
+            '/DTSTAMP:\d\d\d\d\d\d\d\dT\d\d\d\d\d\dZ/',
+            'DTSTAMP:--------T------Z',
+            $ics
         );
     }
 }
