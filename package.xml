@@ -23,7 +23,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-11-14</date>
+ <date>2018-07-04</date>
  <version>
   <release>2.1.8</release>
   <api>2.1.0</api>
@@ -404,9 +404,11 @@
        <file name="line-folding-4.ics" role="test" />
        <file name="line-folding-5.ics" role="test" />
        <file name="line-folding-6.ics" role="test" />
+       <file name="multiple-categoryv1.ics" role="test" />
        <file name="multiple-summary.ics" role="test" />
        <file name="org.vcf" role="test" />
        <file name="quoted-params.ics" role="test" />
+       <file name="single-categoryv1.ics" role="test" />
        <file name="timezone1.ics" role="test" />
        <file name="timezone2.ics" role="test" />
        <file name="timezone3.ics" role="test" />
@@ -631,9 +633,11 @@
    <install as="Horde/Icalendar/fixtures/line-folding-4.ics" name="test/Horde/Icalendar/fixtures/line-folding-4.ics" />
    <install as="Horde/Icalendar/fixtures/line-folding-5.ics" name="test/Horde/Icalendar/fixtures/line-folding-5.ics" />
    <install as="Horde/Icalendar/fixtures/line-folding-6.ics" name="test/Horde/Icalendar/fixtures/line-folding-6.ics" />
+   <install as="Horde/Icalendar/fixtures/multiple-categoryv1.ics" name="test/Horde/Icalendar/fixtures/multiple-categoryv1.ics" />
    <install as="Horde/Icalendar/fixtures/multiple-summary.ics" name="test/Horde/Icalendar/fixtures/multiple-summary.ics" />
    <install as="Horde/Icalendar/fixtures/org.vcf" name="test/Horde/Icalendar/fixtures/org.vcf" />
    <install as="Horde/Icalendar/fixtures/quoted-params.ics" name="test/Horde/Icalendar/fixtures/quoted-params.ics" />
+   <install as="Horde/Icalendar/fixtures/single-categoryv1.ics" name="test/Horde/Icalendar/fixtures/single-categoryv1.ics" />
    <install as="Horde/Icalendar/fixtures/timezone1.ics" name="test/Horde/Icalendar/fixtures/timezone1.ics" />
    <install as="Horde/Icalendar/fixtures/timezone2.ics" name="test/Horde/Icalendar/fixtures/timezone2.ics" />
    <install as="Horde/Icalendar/fixtures/timezone3.ics" name="test/Horde/Icalendar/fixtures/timezone3.ics" />
@@ -1368,7 +1372,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2017-10-20</date>
+   <date>2018-07-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issue that could cause loss of attribute value in iCalendar v1.0 when value is passed as an array.
