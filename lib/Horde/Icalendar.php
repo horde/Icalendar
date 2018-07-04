@@ -1081,10 +1081,10 @@ class Horde_Icalendar
 
             default:
                 if ($this->_oldFormat) {
-                    // FIXME: No need to make this dependent on the number of
-                    // values.
+                    /* vcard 2.1 and vcalendar 1.0 escape only
+                     * semicolons */
                     if (is_array($attribute['values']) &&
-                        count($attribute['values']) > 1) {
+                        count($attribute['values'])) {
                         $values = $attribute['values'];
                         if ($name == 'N' || $name == 'ADR' || $name == 'ORG') {
                             $glue = ';';
@@ -1094,8 +1094,6 @@ class Horde_Icalendar
                         $values = str_replace(';', '\\;', $values);
                         $value = implode($glue, $values);
                     } else {
-                        /* vcard 2.1 and vcalendar 1.0 escape only
-                         * semicolons */
                         $value = str_replace(';', '\\;', $value);
                     }
                     // Text containing newlines or ASCII >= 127 must be BASE64
