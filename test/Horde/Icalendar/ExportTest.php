@@ -329,18 +329,18 @@ EOT;
     {
         $ical = new Horde_Icalendar;
         $vevent = Horde_Icalendar::newComponent('VEVENT', $ical);
-        $vevent->setAttribute('SUMMARY', 'Testevent');
+        $vevent->setAttribute('SUMMARY', 'Testevent 8 days long');
         $vevent->setAttribute('UID', 'XXX');
         $vevent->setAttribute('DTSTART', array('year' => 2015, 'month' => 7, 'mday' => 1), array('VALUE' => 'DATE'));
         $vevent->setAttribute('DTSTAMP', array('year' => 2015, 'month' => 7, 'mday' => 1), array('VALUE' => 'DATE'));
         $vevent->setAttribute('DURATION', 8 * 86400);
         $ical->addComponent($vevent);
         $valarm = Horde_Icalendar::newComponent('VALARM', $vevent);
-        $valarm->setAttribute('TRIGGER', 0, array(
+        $valarm->setAttribute('TRIGGER', -7 * 86400, array(
             'VALUE' => 'DURATION',
             'RELATED' => 'START',
         ));
-        $valarm->setAttribute('DESCRIPTION', 'Alarm at event-start');
+        $valarm->setAttribute('DESCRIPTION', 'Alarm one week before');
         $vevent->addComponent($valarm);
         $this->assertStringEqualsFile(
             __DIR__ . '/fixtures/duration8d.ics',
