@@ -1580,8 +1580,9 @@ class Horde_Icalendar
         $duration .= 'P';
 
         $weeks = floor($value / (7 * 86400));
-        $value = $value % (7 * 86400);
-        if ($weeks) {
+        // https://tools.ietf.org/html/rfc5545#section-3.3.6 only allows full weeks
+        if ($weeks && !($value % (7 * 86400))) {
+            $value = 0;
             $duration .= $weeks . 'W';
         }
 
