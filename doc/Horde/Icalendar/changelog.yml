@@ -19,7 +19,8 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
+  notes: |
+    [jan] Fix duration export to only export full weeks as nW (Ralf Becker <RalfBecker@outdoor-training.de>, PR #1).
     [mjr] Fix issue that could cause loss of attribute value in iCalendar v1.0 when value is passed as an array.
     
 2.1.7:
