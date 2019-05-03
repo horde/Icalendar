@@ -25,7 +25,7 @@
  </developer>
  <date>2017-11-11</date>
  <version>
-  <release>2.1.8</release>
+  <release>2.1.9</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -1371,6 +1371,21 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issue that could cause loss of attribute value in iCalendar v1.0 when value is passed as an array.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.9</release>
+    <api>2.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2018-07-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
