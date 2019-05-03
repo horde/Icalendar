@@ -2,7 +2,7 @@
 id: Icalendar
 name: Icalendar
 full: iCalendar and vCard library
-description: An API for dealing with iCalendar data.
+description: A library for dealing with iCalendar and vCard data.
 list: dev
 type: library
 homepage: https://www.horde.org/libraries/Horde_Icalendar
