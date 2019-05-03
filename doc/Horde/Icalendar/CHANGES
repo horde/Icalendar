@@ -2,7 +2,6 @@
 v2.1.8
 ------
 
-./
 [mjr] Fix issue that could cause loss of attribute value in iCalendar v1.0 when
       value is passed as an array.
 

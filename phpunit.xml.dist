@@ -1,5 +1,4 @@
-<phpunit bootstrap="test/Horde/Icalendar/bootstrap.php"
-colors="true">
+<phpunit bootstrap="test/Horde/Icalendar/bootstrap.php" colors="true">
   <testsuites>
     <testsuite>
       <directory>test</directory>

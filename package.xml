@@ -34,8 +34,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* ./
-* [mjr] Fix issue that could cause loss of attribute value in iCalendar v1.0 when value is passed as an array.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1372,7 +1370,6 @@
    <date>2017-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* ./
 * [mjr] Fix issue that could cause loss of attribute value in iCalendar v1.0 when value is passed as an array.
    </notes>
   </release>
