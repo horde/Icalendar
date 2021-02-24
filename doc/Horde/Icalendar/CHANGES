@@ -1,8 +1,9 @@
-------
-v2.1.9
-------
+------------
+v3.0.0alpha1
+------------
 
-
+[jan] Fix duration export to only export full weeks as nW (Ralf Becker
+      <RalfBecker@outdoor-training.de>, PR #1).
 
 
 ------

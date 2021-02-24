@@ -4,17 +4,11 @@
  <channel>pear.horde.org</channel>
  <extends>Horde_iCalendar</extends>
  <summary>iCalendar and vCard library</summary>
- <description>An API for dealing with iCalendar data.</description>
+ <description>A library for dealing with iCalendar and vCard data.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
-  <active>yes</active>
- </lead>
- <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
  <developer>
@@ -23,14 +17,20 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2017-11-11</date>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>no</active>
+ </lead>
+ <date>2021-02-24</date>
  <version>
-  <release>2.1.9</release>
-  <api>2.1.0</api>
+  <release>3.0.0alpha1</release>
+  <api>3.0.0alpha1</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -391,6 +391,7 @@
        <file name="contact.vcf" role="test" />
        <file name="date.ics" role="test" />
        <file name="duration0.ics" role="test" />
+       <file name="duration8d.ics" role="test" />
        <file name="empty.ics" role="test" />
        <file name="escapes1.ics" role="test" />
        <file name="escapes2.ics" role="test" />
@@ -402,9 +403,11 @@
        <file name="line-folding-4.ics" role="test" />
        <file name="line-folding-5.ics" role="test" />
        <file name="line-folding-6.ics" role="test" />
+       <file name="multiple-categoryv1.ics" role="test" />
        <file name="multiple-summary.ics" role="test" />
        <file name="org.vcf" role="test" />
        <file name="quoted-params.ics" role="test" />
+       <file name="single-categoryv1.ics" role="test" />
        <file name="timezone1.ics" role="test" />
        <file name="timezone2.ics" role="test" />
        <file name="timezone3.ics" role="test" />
@@ -616,6 +619,7 @@
    <install as="Horde/Icalendar/fixtures/contact.vcf" name="test/Horde/Icalendar/fixtures/contact.vcf" />
    <install as="Horde/Icalendar/fixtures/date.ics" name="test/Horde/Icalendar/fixtures/date.ics" />
    <install as="Horde/Icalendar/fixtures/duration0.ics" name="test/Horde/Icalendar/fixtures/duration0.ics" />
+   <install as="Horde/Icalendar/fixtures/duration8d.ics" name="test/Horde/Icalendar/fixtures/duration8d.ics" />
    <install as="Horde/Icalendar/fixtures/empty.ics" name="test/Horde/Icalendar/fixtures/empty.ics" />
    <install as="Horde/Icalendar/fixtures/escapes1.ics" name="test/Horde/Icalendar/fixtures/escapes1.ics" />
    <install as="Horde/Icalendar/fixtures/escapes2.ics" name="test/Horde/Icalendar/fixtures/escapes2.ics" />
@@ -627,9 +631,11 @@
    <install as="Horde/Icalendar/fixtures/line-folding-4.ics" name="test/Horde/Icalendar/fixtures/line-folding-4.ics" />
    <install as="Horde/Icalendar/fixtures/line-folding-5.ics" name="test/Horde/Icalendar/fixtures/line-folding-5.ics" />
    <install as="Horde/Icalendar/fixtures/line-folding-6.ics" name="test/Horde/Icalendar/fixtures/line-folding-6.ics" />
+   <install as="Horde/Icalendar/fixtures/multiple-categoryv1.ics" name="test/Horde/Icalendar/fixtures/multiple-categoryv1.ics" />
    <install as="Horde/Icalendar/fixtures/multiple-summary.ics" name="test/Horde/Icalendar/fixtures/multiple-summary.ics" />
    <install as="Horde/Icalendar/fixtures/org.vcf" name="test/Horde/Icalendar/fixtures/org.vcf" />
    <install as="Horde/Icalendar/fixtures/quoted-params.ics" name="test/Horde/Icalendar/fixtures/quoted-params.ics" />
+   <install as="Horde/Icalendar/fixtures/single-categoryv1.ics" name="test/Horde/Icalendar/fixtures/single-categoryv1.ics" />
    <install as="Horde/Icalendar/fixtures/timezone1.ics" name="test/Horde/Icalendar/fixtures/timezone1.ics" />
    <install as="Horde/Icalendar/fixtures/timezone2.ics" name="test/Horde/Icalendar/fixtures/timezone2.ics" />
    <install as="Horde/Icalendar/fixtures/timezone3.ics" name="test/Horde/Icalendar/fixtures/timezone3.ics" />
@@ -1375,17 +1381,16 @@
   </release>
   <release>
    <version>
-    <release>2.1.9</release>
-    <api>2.1.0</api>
+    <release>3.0.0alpha1</release>
+    <api>3.0.0alpha1</api>
    </version>
    <stability>
-    <release>stable</release>
-    <api>stable</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2018-07-04</date>
+   <date>2021-02-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
    </notes>
   </release>
  </changelog>
