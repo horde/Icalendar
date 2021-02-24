@@ -45,9 +45,6 @@
     "autoload": {
         "psr-0": {
             "Horde_Icalendar": "lib/"
-        },
-        "psr-4": {
-            "Horde\\Icalendar\\": "src/"
         }
     }
 }
