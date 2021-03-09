@@ -172,234 +172,330 @@ class VcardV4Test extends Horde_Test_Case
         $blank->setAttribute('GEO', 'geo:0.0,0.0', ['TYPE' => 'work'], true, []);
         $this->assertStringContainsString('GEO;TYPE=work:geo:', $blank->exportVcalendar());
 
-        // SHOW: V4 vcards use \, and V3 uses ,
-
         // SHOW: LOADING a new-form geo tag
         $this->assertStringContainsString('GEO;TYPE=work:geo:', $this->loaded->exportVcalendar());
-
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
+
     public function testSupportImpp()
     {
         // SHOW: Is optional
+        $blank = $this->blank;
         // SHOW: Can correctly read and write property
-
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertStringNotContainsString('IMPP:', $blank->exportVcalendar());
+        $blank->setAttribute('IMPP', 'xmpp:alice@example.com');
+        $this->assertStringContainsString('IMPP:xmpp:alice@example.com', $blank->exportVcalendar());
+        // With PREF
+        $blank->setAttribute('IMPP', 'xmpp:alice@example.com', ['PREF' => "1"], false);
+        $this->assertStringContainsString('IMPP;PREF=1:xmpp:alice@example.com', $blank->exportVcalendar());
     }
+
     public function testSupportKey()
     {
         // SHOW: Is optional
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('KEY:', $blank->exportVcalendar());
         // SHOW: Can correctly read and write property
-
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank->setAttribute('KEY', 'http://www.example.com/keys/jdoe.cer');
+        $this->assertStringContainsString('KEY:http://www.example.com/keys/jdoe.cer', $blank->exportVcalendar());
     }
+
     public function testSupportKind()
     {
         // SHOW: Is optional
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('KIND:', $blank->exportVcalendar());
         // SHOW: Can correctly read and write property
-
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank->setAttribute('KIND', 'individual', [], false);
+        $this->assertStringContainsString('KIND:individual', $blank->exportVcalendar());
+        $blank->setAttribute('KIND', 'group', [], false);
+        $this->assertStringContainsString('KIND:group', $blank->exportVcalendar());
+        $blank->setAttribute('KIND', 'org', [], false);
+        $this->assertStringContainsString('KIND:org', $blank->exportVcalendar());
+        $blank->setAttribute('KIND', 'location', [], false);
+        $this->assertStringContainsString('KIND:location', $blank->exportVcalendar());
+        
     }
+
     public function testLabelToAdrProperty()
     {
+        // SHOW: Is not present in blank object
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('LABEL:', $blank->exportVcalendar());
         // SHOW: We do not write the LABEL key anymore
+        // On Purpose: Literal newline escapes NOT expanded via ""
+        $blank->setAttribute('LABEL', 'Sonnenstr. 22\n80331 München\nDeutschland');
+        $this->assertStringNotContainsString('LABEL:', $blank->exportVcalendar());
         // SHOW: If a LABEL is provided, we will write out ADR;LABEL
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
+        $this->assertStringContainsString('ADR;LABEL="Sonnenstr. 22\n80331 München\nDeutschland"', $blank->exportVcalendar());
     }
+
     public function testSupportLang()
     {
         // SHOW: Is optional
-        // SHOW: Can correctly read and write property
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('LANG:', $blank->exportVcalendar());
 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // SHOW: Multiple languages possible
+        $blank->setAttribute('LANG', 'de', ['TYPE' => 'home']);
+        $blank->setAttribute('LANG', 'de', ['TYPE' => 'work', 'PREF' => '1' ]);
+        $blank->setAttribute('LANG', 'en', ['TYPE' => 'work']);
+        $blank->setAttribute('LANG', 'fr');
+        $this->assertStringContainsString('LANG;TYPE=home:de', $blank->exportVcalendar());
+        $this->assertStringContainsString('LANG;TYPE=work;PREF=1:de', $blank->exportVcalendar());
+        $this->assertStringContainsString('LANG;TYPE=work:en', $blank->exportVcalendar());
+        $this->assertStringContainsString('LANG:fr', $blank->exportVcalendar());
     }
+
     public function testSupportLogo()
     {
         // SHOW: Is optional
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('LOGO:', $blank->exportVcalendar());
         // SHOW: Can correctly read and write property
-
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank->setAttribute('LOGO', 'http://www.example.com/pub/logos/abccorp.jpg');
+        $this->assertStringContainsString('LOGO:http://www.example.com/pub/logos/abccorp.jpg', $blank->exportVcalendar());
     }
+
     public function testNoMoreMailerProperty()
     {
         // We do not write this property
         // No designated replacement
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('MAILER:', $blank->exportVcalendar());
+        $blank->setAttribute('MAILER', 'Norman Mailer');
+        $this->assertStringNotContainsString('MAILER:', $blank->exportVcalendar());
     }
+
     public function testSupportMemberIfGroup()
     {
+        $blank = $this->blank;
         // SHOW: Is optional
-        // SHOW: Only if KIND is present and GROUP
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $this->assertStringNotContainsString('KIND:', $blank->exportVcalendar());
+        $this->assertStringNotContainsString('MEMBER:', $blank->exportVcalendar());
+        $blank->setAttribute('MEMBER', 'mailto:subscriber1@example.com');
+        $this->assertStringContainsString('KIND:group', $blank->exportVcalendar());
+        $this->assertStringContainsString('MEMBER:mailto:subscriber1@example.com', $blank->exportVcalendar());
     }
+
     public function testSupportN()
     {
         // SHOW: Is optional
-        // SHOW: Only if KIND is present and GROUP
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString("\nN:", $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('N', '', [], true, ['LAST', 'JAMES', null, null, 'sr.']);
+        $this->assertStringContainsString('N:LAST;JAMES;;;sr.', $blank->exportVcalendar());
+        // SHOW: Can only exist once
+        $blank->setAttribute('N', '', [], true, ['LAST', 'JAMES']);
+        $this->assertStringContainsString('N:LAST;JAMES;;;', $blank->exportVcalendar());
+        $blank->setAttribute('N', '', [], true, ['Coverdale']);
+        $this->assertStringContainsString('N:Coverdale;;;;', $blank->exportVcalendar());
+        // Show setting only a last name as a single property.
+        $blank->setAttribute('N', 'Washington');
+        $this->assertStringContainsString('N:Washington;;;;', $blank->exportVcalendar());
     }
+
     public function testNoMoreNameProperty()
     {
+        $blank = $this->blank;
         // We do not write this property
         // No designated replacement
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank->setAttribute('NAME', 'De la Vega');
+        $this->assertStringNotContainsString('NAME:', $blank->exportVcalendar());
     }
+
     public function testSupportNote()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('NOTE:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('NOTE', 'Framework 6.0 is coming');
+        $this->assertStringContainsString('NOTE:Framework 6.0 is coming', $blank->exportVcalendar());
     }
+
     public function testSupportOrg()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('ORG:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('ORG', 'Horde LLC');
+        $this->assertStringContainsString('ORG:Horde LLC', $blank->exportVcalendar());
+        // SHOW: Correctness of multipart ; 
+        $blank->setAttribute('ORG', '', [], false, ['ACME corp', 'Coyote Wear', 'Financial']);
+        $this->assertStringContainsString('ORG:ACME corp;Coyote Wear;Financial', $blank->exportVcalendar());
     }
+
     public function testSupportPhoto()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('PHOTO:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('PHOTO', 'http://www.example.com/pub/photos/jqpublic.gif');
+        $this->assertStringContainsString('PHOTO:http://www.example.com/pub/photos/jqpublic.gif', $blank->exportVcalendar());
     }
+
     public function testSupportProdid()
     {
         // SHOW: Is optional
-        // SHOW: We set it on export
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('PRODID:', $blank->exportVcalendar());
+        // SHOW: Can only exist once
+        $blank->setAttribute('PRODID', 'SOME PRODUCT');
+        $blank->setAttribute('PRODID', 'OR OTHER');
+        $this->assertStringNotContainsString('PRODID:SOME PRODUCT', $blank->exportVcalendar());
+        $this->assertStringContainsString('PRODID:OR OTHER', $blank->exportVcalendar());
     }
+
     public function testNoMoreProfile()
     {
-        // SHOW: Only 
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        // SHOW: We will not set this option for VCard 4.0
+        $blank = $this->blank;
+        $blank->setAttribute('PROFILE', 'VCARD');
+        $this->assertStringNotContainsString('PROFILE:', $blank->exportVcalendar());
     }
+
     public function testSupportRelated()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('RELATED:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('RELATED', 'http://www.example.com/keys/jdoe.cer');
+        $this->assertStringContainsString('RELATED:http://www.example.com/keys/jdoe.cer', $blank->exportVcalendar());
     }
+
     public function testSupportRev()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('REV:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('REV', '19951031T222710Z');
+        $this->assertStringContainsString('REV:19951031T222710Z', $blank->exportVcalendar());
     }
+
     public function testSupportRole()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('ROLE:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('ROLE', 'Team Lead');
+        $this->assertStringContainsString('ROLE:Team Lead', $blank->exportVcalendar());
     }
 
     public function testNoMoreSortstring()
     {
         // If version is vcard 4.0 and sort-string is provided
+        $blank = $this->blank;
         // No SORT-STRING is written
-        // instead, look for existing N and ORG properties
+        $blank->setAttribute('SORT-STRING', 'MIR');
+        $this->assertStringNotContainsString('SORT-STRING:', $blank->exportVcalendar());
+
+        // TODO: Would be nice to autoconvert, look for existing N and ORG properties
         // and amend them with SORT-AS parameter
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
     }
+
     public function testSupportSound()
     {
+        $soundUri = 'CID:JOHNQPUBLIC.part8.19960229T080000.xyzMail@example.com';
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('SOUND:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('SOUND', $soundUri);
+        $this->assertStringContainsString('SOUND:' . $soundUri, $blank->exportVcalendar());
     }
+
     public function testSupportSource()
     {
+        $sourceUri = 'http://directory.example.com/addressbooks/jdoe/Jean%20Dupont.vcf';
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('SOURCE:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('SOURCE', $sourceUri);
+        $this->assertStringContainsString('SOURCE:' . $sourceUri, $blank->exportVcalendar());
     }
+
     public function testSupportTel()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('TEL:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('TEL', 'tel:+33-01-23-45-67', ['VALUE' => 'uri', 'PREF' => '1', 'TYPE' => 'home']);
+        $this->assertStringContainsString('TEL;VALUE=uri;PREF=1;TYPE=home:tel:+33-01-23-45-67', $blank->exportVcalendar());
     }
+
     public function testSupportTitle()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('TITLE:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('TITLE', 'Rampage Master');
+        $this->assertStringContainsString('TITLE:Rampage Master', $blank->exportVcalendar());
     }
+
     public function testSupportTz()
     {
         // SHOW: Is optional
-        // SHOW: We write the 4.0 representation
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('TZ:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('TZ', 'Europe/Berlin');
+        $this->assertStringContainsString('TZ:Europe/Berlin', $blank->exportVcalendar());
+        // TODO: Show handling if we input legacy format
     }
+
     public function testSupportUid()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('UID:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('UID', 'urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6');
+        $blank->setAttribute('UID', 'urn:uuid:f81d4fae-7dec-11d0-a755-00a0c91e6bf6');
+        $this->assertStringNotContainsString('UID:urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6', $blank->exportVcalendar());
+        $this->assertStringContainsString('UID:urn:uuid:f81d4fae-7dec-11d0-a755-00a0c91e6bf6', $blank->exportVcalendar());
     }
+
     public function testSupportUrl()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('URL:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('URL', 'https://www.horde.org');
+        $this->assertStringContainsString('URL:https://www.horde.org', $blank->exportVcalendar());
     }
+
     public function testVersionMandatory()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-        // SHOW: Regardless of order, version is always right after BEGIN
+        $blank = $this->blank;
         // SHOW: Version is always present
+        $this->assertStringContainsString('VERSION:', $blank->exportVcalendar());
+        // SHOW: Regardless of order, version is always right after BEGIN
+        $blank->setAttribute('URL', 'https://www.horde.org');
+        $blank->setAttribute('VERSION:', '4.0');
+        $expect = "BEGIN:VCARD\r\nVERSION:4.0\r\n";
+        $this->assertStringContainsString($expect, $blank->exportVcalendar());
     }
+
     public function testSupportXml()
     {
         // SHOW: Is optional
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
+        $blank = $this->blank;
+        $this->assertStringNotContainsString('XML:', $blank->exportVcalendar());
+        // SHOW: Can correctly read and write property
+        $blank->setAttribute('XML', '<xml></xml>');
+        $this->assertStringContainsString('XML:<xml></xml>', $blank->exportVcalendar());
     }
+
     // Tests for RFC 6474 vCard Format Extensions: Place of Birth, Place and Date of Death
     // TODO
     // TEST for RFC 6715 https://tools.ietf.org/html/rfc6715 OMA CAB extensions
