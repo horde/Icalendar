@@ -4,13 +4,15 @@
  * @package    Icalendar
  * @subpackage UnitTests
  */
-
+namespace Horde\Icalendar;
+use \Horde_Test_Case;
+use \Horde_Icalendar;
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
  */
-class Horde_Icalendar_CharsetTest extends Horde_Test_Case
+class CharsetTest extends Horde_Test_Case
 {
     public function testFiles()
     {

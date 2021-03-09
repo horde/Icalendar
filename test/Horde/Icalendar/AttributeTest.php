@@ -4,13 +4,15 @@
  * @package    Icalendar
  * @subpackage UnitTests
  */
-
+namespace Horde\Icalendar;
+use \Horde_Test_Case;
+use \Horde_Icalendar;
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
  */
-class Horde_Icalendar_AttributeTest extends Horde_Test_Case
+class AttributeTest extends Horde_Test_Case
 {
     public function testDates()
     {
@@ -90,7 +92,7 @@ class Horde_Icalendar_AttributeTest extends Horde_Test_Case
 
         $result = $ical->getComponent(0)->getAttributeSingle('SUMMARY');
 
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
 
         $this->assertEquals(
             'Summary 1',

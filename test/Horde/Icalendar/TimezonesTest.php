@@ -4,15 +4,18 @@
  * @package    Icalendar
  * @subpackage UnitTests
  */
-
+namespace Horde\Icalendar;
+use \Horde_Test_Case;
+use \Horde_Icalendar;
+use \Horde_Date;
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
  */
-class Horde_Icalendar_TimezonesTest extends Horde_Test_Case
+class TimezonesTest extends Horde_Test_Case
 {
-    public function setUp()
+    public function setUp(): void
     {
         date_default_timezone_set('UTC');
     }

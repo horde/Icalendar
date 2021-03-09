@@ -4,13 +4,16 @@
  * @package    Icalendar
  * @subpackage UnitTests
  */
-
+namespace Horde\Icalendar;
+use \Horde_Test_Case;
+use \Horde_Icalendar;
+use \Horde_Icalendar_Vfreebusy;
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
  */
-class Horde_Icalendar_FreeBusyTest extends Horde_Test_Case
+class FreeBusyTest extends Horde_Test_Case
 {
     public function testRead()
     {
