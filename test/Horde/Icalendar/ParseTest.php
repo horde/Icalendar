@@ -254,14 +254,14 @@ class ParseTest extends Horde_Test_Case
                 'params' => 
                 array(
                 ),
-                'value' => 'Bug Triage session
-
-Not been invited ? Want to attend ? Let us know and we\'ll add you!',
+                'value' => "Bug Triage session\r
+\r
+Not been invited ? Want to attend ? Let us know and we'll add you!",
                 'values' => 
                 array(
-                  0 => 'Bug Triage session
-
-Not been invited ? Want to attend ? Let us know and we\'ll add you!',
+                  0 => "Bug Triage session\r
+\r
+Not been invited ? Want to attend ? Let us know and we'll add you!",
                 ),
               ),
               8 => 
