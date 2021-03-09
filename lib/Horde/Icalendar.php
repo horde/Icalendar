@@ -775,6 +775,10 @@ class Horde_Icalendar
                             $floats = explode(',', $value);
                             $value = array('latitude' => floatval($floats[1]),
                                            'longitude' => floatval($floats[0]));
+                        } elseif ($this->_version == '4.0' && $this->type == 'vcard') {
+                            $floats = explode(',', $value);
+                            $value = array('latitude' => floatval($floats[1]),
+                                           'longitude' => floatval($floats[0]));
                         } else {
                             $floats = explode(';', $value);
                             $value = array('latitude' => floatval($floats[0]),
@@ -1069,6 +1073,11 @@ class Horde_Icalendar
             case 'GEO':
                 if ($this->_oldFormat) {
                     $value = $value['longitude'] . ',' . $value['latitude'];
+                } elseif ($this->type == 'vcard' && $this->_version == '4.0') {
+                    if (is_array($value)) {
+                        $value = 'geo:' . $value['latitude'] . ',' . $value['longitude'];
+                    }
+                    // supplied array already formed to URI by setValue. Nothing to do.
                 } else {
                     $value = $value['latitude'] . ';' . $value['longitude'];
                 }
@@ -1114,7 +1123,7 @@ class Horde_Icalendar
                     if (is_array($attribute['values']) &&
                         count($attribute['values'])) {
                         $values = $attribute['values'];
-                        if ($name == 'N' || $name == 'ADR' || $name == 'ORG') {
+                        if (in_array($name, [ 'N', 'ADR', 'ORG', 'CLIENTPIDMAP'])) {
                             $glue = ';';
                         } else {
                             $glue = ',';
