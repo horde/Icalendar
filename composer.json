@@ -39,8 +39,18 @@
         "horde/util": "^3 || dev-FRAMEWORK_6_0"
     },
     "require-dev": {},
+        "horde/horde-installer-plugin": "*",
+        "php": "^7",
+        "horde/date": "^3",
+        "horde/exception": "^3",
+        "horde/mail": "^3",
+        "horde/support": "^3",
+        "horde/translation": "^3",
+        "horde/util": "^3",
+        "horde/test": "dev-FRAMEWORK_6_0"
+    },
+    "minimum-stability": "dev",
     "suggest": {
-        "horde/test": "^3 || dev-FRAMEWORK_6_0"
     },
     "autoload": {
         "psr-0": {
