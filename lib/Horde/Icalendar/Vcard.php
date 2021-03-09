@@ -94,10 +94,9 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
             // Do not accept attributes removed from the standard.
             // Rewrite to more appropriate newer representation if possible
             if ($name == 'AGENT') {
-                $this->setAttribute('RELATED', $value, ['type' => 'agent']);
-                return;
+                return $this->setAttribute('RELATED', $value, ['type' => 'agent']);
             }
-            if ($name == 'CLASS') {
+            if (in_array($name, ['NAME', 'MAILER', 'CLASS', 'PROFILE', 'SORT-STRING'])) {
                 return;
             }
             if ($name == 'GEO') {
@@ -107,7 +106,30 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
                     $values = [];
                 }
             }
-
+            if ($name == 'KIND') {
+                // There can be only one
+                return parent::setAttribute($name, $value, [], false);
+            }
+            if ($name == 'MEMBER') {
+                // MEMBER requires KIND: group
+                $this->setAttribute('KIND', 'group');
+            }
+            if ($name == 'LABEL') {
+                return $this->setAttribute('ADR', '', ['LABEL' => $value]);
+            }
+            if ($name == 'N') {
+                if (empty($values[0])) {
+                    $values[0] = $value;
+                }
+                // Ensure we always have 5 components
+                while (count($values) < 5) {
+                    $values[] = null;
+                }
+                return parent::setAttribute($name, $value, $params, false, $values);
+            }
+            if (in_array($name, ['PRODID', 'UID'])) {
+                return parent::setAttribute($name, $value, $params, false, $values);
+            }
         }
         return parent::setAttribute($name, $value, $params, $append, $values);
     }
