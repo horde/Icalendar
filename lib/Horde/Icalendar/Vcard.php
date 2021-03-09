@@ -73,16 +73,61 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
     }
 
     /**
+     * Sets the value of an attribute.
+     *
+     * @param string $name     The name of the attribute.
+     * @param string $value    The value of the attribute.
+     * @param array $params    Array containing any addition parameters for
+     *                         this attribute.
+     * @param boolean $append  True to append the attribute, False to replace
+     *                         the first matching attribute found.
+     * @param array $values    Array representation of $value.  For
+     *                         comma/semicolon seperated lists of values.  If
+     *                         not set use $value as single array element.
+     */
+    public function setAttribute(
+        $name, $value, $params = [],
+        $append = true, $values = false
+    )
+    {
+        if ($this->_version == '4.0') {
+            // Do not accept attributes removed from the standard.
+            // Rewrite to more appropriate newer representation if possible
+            if ($name == 'AGENT') {
+                $this->setAttribute('RELATED', $value, ['type' => 'agent']);
+                return;
+            }
+            if ($name == 'CLASS') {
+                return;
+            }
+            if ($name == 'GEO') {
+                // VCARD 4.0 GEO works differently
+                if (!empty($values)) {
+                    $value = 'geo:' . implode(',', $values);
+                    $values = [];
+                }
+            }
+
+        }
+        return parent::setAttribute($name, $value, $params, $append, $values);
+    }
+    /**
      * Unlike vevent and vtodo, a vcard is normally not enclosed in an
      * iCalendar container. (BEGIN..END)
      *
-     * @return TODO
+     * @return string A Vcalendar representation
      */
     public function exportvCalendar()
     {
         $requiredAttributes['VERSION'] = $this->_version;
-        $requiredAttributes['N'] = ';;;;;;';
+        if ($this->_version != '4.0') {
+            // Not mandatory in 4.0
+            $requiredAttributes['N'] = ';;;;;;';
+        }
         if ($this->_version == '3.0') {
+            $requiredAttributes['FN'] = '';
+        }
+        if ($this->_version == '4.0') {
             $requiredAttributes['FN'] = '';
         }
 

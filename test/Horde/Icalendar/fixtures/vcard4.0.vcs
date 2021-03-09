@@ -1,0 +1,6 @@
+BEGIN:VCARD
+VERSION:4.0
+GEO;TYPE=work:geo:37.386013,-122.082932
+FN:Dr. Firstname Middle Names Lastname, sr.
+N:Lastname;Firstname;Middle Names;Prefix;Suffix
+END:VCARD
