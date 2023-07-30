@@ -12,7 +12,7 @@
  */
 class Horde_Icalendar_TimezonesTest extends Horde_Test_Case
 {
-    public function setUp()
+    public function setUp(): void
     {
         date_default_timezone_set('UTC');
     }

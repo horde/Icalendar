@@ -90,7 +90,7 @@ class Horde_Icalendar_AttributeTest extends Horde_Test_Case
 
         $result = $ical->getComponent(0)->getAttributeSingle('SUMMARY');
 
-        $this->assertInternalType('string', $result);
+        $this->assertIsString($result);
 
         $this->assertEquals(
             'Summary 1',
