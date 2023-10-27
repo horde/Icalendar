@@ -38,7 +38,7 @@
         "horde/translation": "^3 || dev-FRAMEWORK_6_0",
         "horde/util": "^3 || dev-FRAMEWORK_6_0"
     },
-    "require-dev": {},
+    "require-dev": {
         "horde/horde-installer-plugin": "*",
         "php": "^7",
         "horde/date": "^3",
