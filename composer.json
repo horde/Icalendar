@@ -24,26 +24,20 @@
     "version": "2.1.8",
     "time": "2018-07-04",
     "repositories": [
-        {
-            "type": "pear",
-            "url": "https://pear.horde.org"
-        }
     ],
     "require": {
         "php": "^5.3 || ^7",
-        "pear-pear.horde.org/Horde_Date": "^2",
-        "pear-pear.horde.org/Horde_Exception": "^2",
-        "pear-pear.horde.org/Horde_Mail": "^2",
-        "pear-pear.horde.org/Horde_Support": "^2",
-        "pear-pear.horde.org/Horde_Translation": "^2.2",
-        "pear-pear.horde.org/Horde_Util": "^2"
+        "horde/date": "^2",
+        "horde/exception": "^2",
+        "horde/mail": "^2",
+        "horde/support": "^2",
+        "horde/translation": "^2.2",
+        "horde/util": "^2"
     },
-    "suggest": {
-        "pear-pear.horde.org/Horde_Test": "^2.1"
+    "require-dev": {
+        "horde/test": "^2.1"
     },
     "replace": {
-        "pear-pear.horde.org/Horde_Icalendar": "2.*",
-        "pear-horde/Horde_Icalendar": "2.*"
     },
     "autoload": {
         "psr-0": {
