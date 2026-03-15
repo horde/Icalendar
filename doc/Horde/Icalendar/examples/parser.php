@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+
 /**
  * Takes a filename on the command line and parses it, displaying what it
  * finds. Intended for use in debugging the iCalendar parser's behavior with

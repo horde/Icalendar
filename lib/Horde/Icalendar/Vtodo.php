@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -47,35 +48,39 @@ class Horde_Icalendar_Vtodo extends Horde_Icalendar
      */
     public function toArray()
     {
-        $todo = array();
+        $todo = [];
 
         try {
             $name = $this->getAttribute('SUMMARY');
             if (!is_array($name)) {
                 $todo['name'] = $name;
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $desc = $this->getAttribute('DESCRIPTION');
             if (!is_array($desc)) {
                 $todo['desc'] = $desc;
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $priority = $this->getAttribute('PRIORITY');
             if (!is_array($priority)) {
                 $todo['priority'] = $priority;
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $due = $this->getAttribute('DTSTAMP');
             if (!is_array($due)) {
                 $todo['due'] = $due;
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         return $todo;
     }

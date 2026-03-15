@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,10 +38,10 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
     public function exportvCalendar()
     {
         // Default values.
-        $requiredAttributes = array(
+        $requiredAttributes = [
             'DTSTAMP' => time(),
-            'UID' => strval(new Horde_Support_Uuid())
-        );
+            'UID' => strval(new Horde_Support_Uuid()),
+        ];
 
         $method = null;
         if (!empty($this->_container)) {
@@ -51,39 +52,39 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
         }
 
         switch ($method) {
-        case 'PUBLISH':
-            $requiredAttributes['DTSTART'] = time();
-            $requiredAttributes['SUMMARY'] = '';
-            break;
+            case 'PUBLISH':
+                $requiredAttributes['DTSTART'] = time();
+                $requiredAttributes['SUMMARY'] = '';
+                break;
 
-        case 'REQUEST':
-            $requiredAttributes['ATTENDEE'] = '';
-            $requiredAttributes['DTSTART'] = time();
-            $requiredAttributes['SUMMARY'] = '';
-            break;
+            case 'REQUEST':
+                $requiredAttributes['ATTENDEE'] = '';
+                $requiredAttributes['DTSTART'] = time();
+                $requiredAttributes['SUMMARY'] = '';
+                break;
 
-        case 'REPLY':
-            $requiredAttributes['ATTENDEE'] = '';
-            break;
+            case 'REPLY':
+                $requiredAttributes['ATTENDEE'] = '';
+                break;
 
-        case 'ADD':
-            $requiredAttributes['DTSTART'] = time();
-            $requiredAttributes['SEQUENCE'] = 1;
-            $requiredAttributes['SUMMARY'] = '';
-            break;
+            case 'ADD':
+                $requiredAttributes['DTSTART'] = time();
+                $requiredAttributes['SEQUENCE'] = 1;
+                $requiredAttributes['SUMMARY'] = '';
+                break;
 
-        case 'CANCEL':
-            $requiredAttributes['ATTENDEE'] = '';
-            $requiredAttributes['SEQUENCE'] = 1;
-            break;
+            case 'CANCEL':
+                $requiredAttributes['ATTENDEE'] = '';
+                $requiredAttributes['SEQUENCE'] = 1;
+                break;
 
-        case 'REFRESH':
-            $requiredAttributes['ATTENDEE'] = '';
-            break;
+            case 'REFRESH':
+                $requiredAttributes['ATTENDEE'] = '';
+                break;
 
-        default:
-            $requiredAttributes['DTSTART'] = time();
-            break;
+            default:
+                $requiredAttributes['DTSTART'] = time();
+                break;
         }
 
         foreach ($requiredAttributes as $name => $default_value) {
@@ -107,8 +108,8 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
     public function updateAttendee($email, $status, $fullname = '')
     {
         foreach ($this->_attributes as $key => $attribute) {
-            if ($attribute['name'] == 'ATTENDEE' &&
-                $attribute['value'] == 'mailto:' . $email) {
+            if ($attribute['name'] == 'ATTENDEE'
+                && $attribute['value'] == 'mailto:' . $email) {
                 $this->_attributes[$key]['params']['PARTSTAT'] = $status;
                 if (!empty($fullname)) {
                     $this->_attributes[$key]['params']['CN'] = $fullname;
@@ -117,7 +118,7 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
                 return;
             }
         }
-        $params = array('PARTSTAT' => $status);
+        $params = ['PARTSTAT' => $status];
         if (!empty($fullname)) {
             $params['CN'] = $fullname;
         }
@@ -159,9 +160,11 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
                 $this->getAttribute($newAttribute['name']);
             } catch (Horde_Icalendar_Exception $e) {
                 // Already exists so just add it.
-                $this->setAttribute($newAttribute['name'],
-                                    $newAttribute['value'],
-                                    $newAttribute['params']);
+                $this->setAttribute(
+                    $newAttribute['name'],
+                    $newAttribute['value'],
+                    $newAttribute['params']
+                );
                 continue;
             }
 
@@ -172,8 +175,8 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
             // only the params changed (eg attendee updating
             // status).
             foreach ($this->_attributes as $id => $attr) {
-                if ($attr['name'] == $newAttribute['name'] &&
-                    $attr['value'] == $newAttribute['value']) {
+                if ($attr['name'] == $newAttribute['name']
+                    && $attr['value'] == $newAttribute['value']) {
                     // merge the params
                     foreach ($newAttribute['params'] as $param_id => $param_name) {
                         $this->_attributes[$id]['params'][$param_id] = $param_name;
@@ -217,9 +220,11 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
                 $this->getAttribute($newAttribute['name']);
             } catch (Horde_Icalendar_Exception $e) {
                 // Already exists so just add it.
-                $this->setAttribute($newAttribute['name'],
-                                    $newAttribute['value'],
-                                    $newAttribute['params']);
+                $this->setAttribute(
+                    $newAttribute['name'],
+                    $newAttribute['value'],
+                    $newAttribute['params']
+                );
                 continue;
             }
 
@@ -229,8 +234,8 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
             // only the params changed (eg attendee updating
             // status).
             foreach ($this->_attributes as $id => $attr) {
-                if ($attr['name'] == $newAttribute['name'] &&
-                    $attr['value'] == $newAttribute['value']) {
+                if ($attr['name'] == $newAttribute['name']
+                    && $attr['value'] == $newAttribute['value']) {
                     // Merge the params.
                     foreach ($newAttribute['params'] as $param_id => $param_name) {
                         $this->_attributes[$id]['params'][$param_id] = $param_name;

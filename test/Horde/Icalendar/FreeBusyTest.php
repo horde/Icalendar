@@ -1,17 +1,22 @@
 <?php
+
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
  */
+
 namespace Horde\Icalendar;
-use \Horde_Test_Case;
-use \Horde_Icalendar;
-use \Horde_Icalendar_Vfreebusy;
+
+use Horde_Test_Case;
+use Horde_Icalendar;
+use Horde_Icalendar_Vfreebusy;
+
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
+ * @coversNothing
  */
 class FreeBusyTest extends Horde_Test_Case
 {
@@ -50,10 +55,10 @@ class FreeBusyTest extends Horde_Test_Case
 
         // Dump busy periods
         $this->assertEquals(
-            array(
-               1164258000 => 1164261600,
-               1164268800 => 1164276000
-            ),
+            [
+                1164258000 => 1164261600,
+                1164268800 => 1164276000,
+            ],
             $vfb->getBusyPeriods()
         );
 
@@ -66,9 +71,9 @@ class FreeBusyTest extends Horde_Test_Case
 
         // Dump the free periods in between the two given time stamps
         $this->assertEquals(
-            array(
-               1164261600 => 1164268800,
-            ),
+            [
+                1164261600 => 1164268800,
+            ],
             $vfb->getFreePeriods(1164261500, 1164268900)
         );
 
@@ -87,10 +92,10 @@ class FreeBusyTest extends Horde_Test_Case
         // Free periods don't get added
         $vfb->addBusyPeriod('FREE', 1164261600, 1164268800);
         $this->assertEquals(
-            array(
-               1164258000 => 1164261600,
-               1164268800 => 1164276000
-            ),
+            [
+                1164258000 => 1164261600,
+                1164268800 => 1164276000,
+            ],
             $vfb->getBusyPeriods()
         );
 
@@ -98,31 +103,36 @@ class FreeBusyTest extends Horde_Test_Case
         $vfb->addBusyPeriod('BUSY', 1164279600, 1164283200);
 
         // Add a busy period with start/duration (14:00 / 2h)
-        $vfb->addBusyPeriod('BUSY', 1164290400, null, 7200, array('X-SUMMARY' => 'dGVzdA==')
+        $vfb->addBusyPeriod(
+            'BUSY',
+            1164290400,
+            null,
+            7200,
+            ['X-SUMMARY' => 'dGVzdA==']
         );
 
         // Dump busy periods
         $this->assertEquals(
-            array(
-               1164258000 => 1164261600,
-               1164268800 => 1164276000,
-               1164279600 => 1164283200,
-               1164290400 => 1164297600,
-            ),
+            [
+                1164258000 => 1164261600,
+                1164268800 => 1164276000,
+                1164279600 => 1164283200,
+                1164290400 => 1164297600,
+            ],
             $vfb->getBusyPeriods()
         );
 
         // Dump the extra parameters
         $this->assertEquals(
-            array(
-               1164258000 => array(
-                   'X-UID' => 'MmZlNWU3NDRmMGFjNjZkNjRjZjFkZmFmYTE4NGFiZTQ=',
-                   'X-SUMMARY' => 'dGVzdHRlcm1pbg=='
-               ),
-               1164268800 => array(),
-               1164279600 => array(),
-               1164290400 => array('X-SUMMARY' => 'dGVzdA=='),
-            ),
+            [
+                1164258000 => [
+                    'X-UID' => 'MmZlNWU3NDRmMGFjNjZkNjRjZjFkZmFmYTE4NGFiZTQ=',
+                    'X-SUMMARY' => 'dGVzdHRlcm1pbg==',
+                ],
+                1164268800 => [],
+                1164279600 => [],
+                1164290400 => ['X-SUMMARY' => 'dGVzdA=='],
+            ],
             $vfb->getExtraParams()
         );
 
@@ -137,42 +147,67 @@ class FreeBusyTest extends Horde_Test_Case
         // Create new freebusy object for merging
         $mfb = new Horde_Icalendar_Vfreebusy();
         // 1. 3:55 / 10 minutes; summary "test4"
-        $mfb->addBusyPeriod('BUSY', 1164254100, null, 600,
-                            array('X-SUMMARY' => 'dGVzdDQ='));
+        $mfb->addBusyPeriod(
+            'BUSY',
+            1164254100,
+            null,
+            600,
+            ['X-SUMMARY' => 'dGVzdDQ=']
+        );
         // 2. 4:00 / 1 hours 5 Minutes; summary "test3"
-        $mfb->addBusyPeriod('BUSY', 1164254400, null, 3900,
-                            array('X-SUMMARY' => 'dGVzdDM='));
+        $mfb->addBusyPeriod(
+            'BUSY',
+            1164254400,
+            null,
+            3900,
+            ['X-SUMMARY' => 'dGVzdDM=']
+        );
         // 3. 5:55 / 10 minutes hours; summary "test5"
-        $mfb->addBusyPeriod('BUSY', 1164261300, null, 600,
-                            array('X-SUMMARY' => 'dGVzdDU=='));
+        $mfb->addBusyPeriod(
+            'BUSY',
+            1164261300,
+            null,
+            600,
+            ['X-SUMMARY' => 'dGVzdDU==']
+        );
         // 4. 7:55 / 10 min
         $mfb->addBusyPeriod('BUSY', 1164268500, null, 600);
         // 5. 9:55 / 10 min
         $mfb->addBusyPeriod('BUSY', 1164275700, null, 600);
         // 6. 11:00 / 4 hours; summary "test2"
-        $mfb->addBusyPeriod('BUSY', 1164279600, null, 14400,
-                            array('X-SUMMARY' => 'dGVzdDI='));
+        $mfb->addBusyPeriod(
+            'BUSY',
+            1164279600,
+            null,
+            14400,
+            ['X-SUMMARY' => 'dGVzdDI=']
+        );
         // 7. 14:00 / 2 min
         $mfb->addBusyPeriod('BUSY', 1164290400, null, 120);
         // 8. 14:30 / 5 min; summary "test3"
-        $mfb->addBusyPeriod('BUSY', 1164292200, null, 300,
-                            array('X-SUMMARY' => 'dGVzdDM='));
+        $mfb->addBusyPeriod(
+            'BUSY',
+            1164292200,
+            null,
+            300,
+            ['X-SUMMARY' => 'dGVzdDM=']
+        );
         // 9. 15:55 / 5 min
         $mfb->addBusyPeriod('BUSY', 1164297300, 1164297600);
 
         // Dump busy periods
         $this->assertEquals(
-            array(
-               1164254100 => 1164254700,
-               1164254400 => 1164258300,
-               1164261300 => 1164261900,
-               1164268500 => 1164269100,
-               1164275700 => 1164276300,
-               1164279600 => 1164294000,
-               1164290400 => 1164290520,
-               1164292200 => 1164292500,
-               1164297300 => 1164297600,
-            ),
+            [
+                1164254100 => 1164254700,
+                1164254400 => 1164258300,
+                1164261300 => 1164261900,
+                1164268500 => 1164269100,
+                1164275700 => 1164276300,
+                1164279600 => 1164294000,
+                1164290400 => 1164290520,
+                1164292200 => 1164292500,
+                1164297300 => 1164297600,
+            ],
             $mfb->getBusyPeriods()
         );
 
@@ -197,19 +232,19 @@ class FreeBusyTest extends Horde_Test_Case
         $extra = $vfb->getExtraParams();
 
         $this->assertEquals(
-            array(
-               1164258000 => 1164261600,
-               1164268800 => 1164276000,
-               1164279600 => 1164294000,
-               1164290400 => 1164297600,
-               1164254100 => 1164254700,
-               1164254400 => 1164258300,
-               1164261300 => 1164261900,
-               1164268500 => 1164269100,
-               1164275700 => 1164276300,
-               1164292200 => 1164292500,
-               1164297300 => 1164297600,
-            ),
+            [
+                1164258000 => 1164261600,
+                1164268800 => 1164276000,
+                1164279600 => 1164294000,
+                1164290400 => 1164297600,
+                1164254100 => 1164254700,
+                1164254400 => 1164258300,
+                1164261300 => 1164261900,
+                1164268500 => 1164269100,
+                1164275700 => 1164276300,
+                1164292200 => 1164292500,
+                1164297300 => 1164297600,
+            ],
             $busy
         );
 

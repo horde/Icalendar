@@ -1,16 +1,21 @@
 <?php
+
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
  */
+
 namespace Horde\Icalendar;
-use \Horde_Test_Case;
-use \Horde_Icalendar;
+
+use Horde_Test_Case;
+use Horde_Icalendar;
+
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
+ * @coversNothing
  */
 class AttributeTest extends Horde_Test_Case
 {
@@ -33,10 +38,10 @@ class AttributeTest extends Horde_Test_Case
         $ical = new Horde_Icalendar();
         $ical->parsevCalendar(file_get_contents(__DIR__ . '/fixtures/org.vcf'));
         $this->assertEquals(
-            array(
+            [
                 'My Organization',
-                'My Unit'
-            ),
+                'My Unit',
+            ],
             $ical->getComponent(0)->getAttributeValues('ORG')
         );
     }
@@ -46,18 +51,18 @@ class AttributeTest extends Horde_Test_Case
         $ical = new Horde_Icalendar();
         $ical->parsevCalendar(file_get_contents(__DIR__ . '/fixtures/geo1.vcf'));
         $this->assertEquals(
-            array(
+            [
                 'latitude' => -17.87,
                 'longitude' => 37.24,
-            ),
+            ],
             $ical->getComponent(0)->getAttribute('GEO')
         );
         $ical->parsevCalendar(file_get_contents(__DIR__ . '/fixtures/geo2.vcf'));
         $this->assertEquals(
-            array(
+            [
                 'latitude' => 37.386013,
                 'longitude' => -122.082932,
-            ),
+            ],
             $ical->getComponent(0)->getAttribute('GEO')
         );
     }
@@ -66,15 +71,16 @@ class AttributeTest extends Horde_Test_Case
     {
         $ical = new Horde_Icalendar();
         $ical->parsevCalendar(file_get_contents(__DIR__ . '/fixtures/contact.vcf'));
-        $this->assertEquals(array(
+        $this->assertEquals(
+            [
                 '',
                 '',
                 '123 Main St',
                 'Smallville',
                 'NJ',
                 '08111',
-                'United States'
-            ),
+                'United States',
+            ],
             $ical->getComponent(0)->getAttributeValues('ADR')
         );
         $this->assertEquals(

@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -43,14 +44,14 @@ class Horde_Icalendar
      *
      * @var array
      */
-    protected $_attributes = array();
+    protected $_attributes = [];
 
     /**
      * Any children (contained) iCalendar components of this object.
      *
      * @var array
      */
-    protected $_components = array();
+    protected $_components = [];
 
     /**
      * According to RFC 2425, we should always use CRLF-terminated lines.
@@ -143,9 +144,13 @@ class Horde_Icalendar
      *                         comma/semicolon seperated lists of values.  If
      *                         not set use $value as single array element.
      */
-    public function setAttribute($name, $value, $params = array(),
-                                 $append = true, $values = false)
-    {
+    public function setAttribute(
+        $name,
+        $value,
+        $params = [],
+        $append = true,
+        $values = false
+    ) {
         // Make sure we update the internal format version if
         // setAttribute('VERSION', ...) is called.
         if ($name == 'VERSION') {
@@ -156,7 +161,7 @@ class Horde_Icalendar
         }
 
         if (!$values) {
-            $values = array($value);
+            $values = [$value];
         }
         $found = false;
 
@@ -173,12 +178,12 @@ class Horde_Icalendar
         }
 
         if ($append || !$found) {
-            $this->_attributes[] = array(
+            $this->_attributes[] = [
                 'name'      => Horde_String::upper($name),
                 'params'    => $params,
                 'value'     => $value,
-                'values'    => $values
-            );
+                'values'    => $values,
+            ];
         }
     }
 
@@ -192,7 +197,7 @@ class Horde_Icalendar
      *
      * @return boolean  True on success, false if no attribute $name exists.
      */
-    public function setParameter($name, $params = array())
+    public function setParameter($name, $params = [])
     {
         $keys = array_keys($this->_attributes);
         foreach ($keys as $key) {
@@ -223,7 +228,7 @@ class Horde_Icalendar
             return $this->_version;
         }
 
-        $result = array();
+        $result = [];
         foreach ($this->_attributes as $attribute) {
             if ($attribute['name'] == $name) {
                 $result[] = $params
@@ -279,7 +284,7 @@ class Horde_Icalendar
      */
     public function getAttributeValues($name)
     {
-        $result = array();
+        $result = [];
         foreach ($this->_attributes as $attribute) {
             if ($attribute['name'] == $name) {
                 $result = array_merge($attribute['values'], $result);
@@ -341,7 +346,7 @@ class Horde_Icalendar
             return $this->_attributes;
         }
 
-        $result = array();
+        $result = [];
         foreach ($this->_attributes as $attribute) {
             if ($attribute['name'] == $tag) {
                 $result[] = $attribute;
@@ -360,7 +365,7 @@ class Horde_Icalendar
     public function addComponent($components)
     {
         if (!is_array($components)) {
-            $components = array($components);
+            $components = [$components];
         }
 
         foreach ($components as $component) {
@@ -399,7 +404,7 @@ class Horde_Icalendar
      */
     public function getComponentClasses()
     {
-        $r = array();
+        $r = [];
 
         foreach ($this->_components as $c) {
             $cn = Horde_String::lower(get_class($c));
@@ -433,9 +438,8 @@ class Horde_Icalendar
      */
     public function getComponent($idx)
     {
-        return isset($this->_components[$idx])
-            ? $this->_components[$idx]
-            : false;
+        return $this->_components[$idx]
+            ?? false;
     }
 
     /**
@@ -474,9 +478,11 @@ class Horde_Icalendar
      *                                    of the specified class exists, or
      *                                    the requested component.
      */
-    public function findComponentByAttribute($childclass, $attribute,
-                                             $value = null)
-    {
+    public function findComponentByAttribute(
+        $childclass,
+        $attribute,
+        $value = null
+    ) {
         $childclass = __CLASS__ . '_' . Horde_String::lower($childclass);
 
         foreach (array_keys($this->_components) as $key) {
@@ -502,10 +508,13 @@ class Horde_Icalendar
      */
     public function clear()
     {
-        $this->_attributes = $this->_components = array();
+        $this->_attributes = $this->_components = [];
     }
 
-    public function toString() { return $this->exportvCalendar(); }
+    public function toString()
+    {
+        return $this->exportvCalendar();
+    }
     /**
      * Export as vCalendar format.
      *
@@ -546,9 +555,9 @@ class Horde_Icalendar
      */
     public function toHash($paramsInKeys = false)
     {
-        $hash = array();
+        $hash = [];
 
-        foreach ($this->_attributes as $a)  {
+        foreach ($this->_attributes as $a) {
             $k = $a['name'];
             if ($paramsInKeys && is_array($a['params'])) {
                 foreach ($a['params'] as $p => $v) {
@@ -623,7 +632,7 @@ class Horde_Icalendar
                 preg_match('/([^;^:]*)((;(?:[^":]+|(?:"[^"]*")+)*)?):([^\r\n]*)[\r\n]*/', $attribute, $parts);
                 $tag = trim(preg_replace('/^.*\./', '', Horde_String::upper($parts[1])));
                 $value = $parts[4];
-                $params = array();
+                $params = [];
 
                 // Parse parameters.
                 if (!empty($parts[2])) {
@@ -652,7 +661,7 @@ class Horde_Icalendar
                             if (is_array($params[$paramName])) {
                                 $params[$paramName][] = $paramValue;
                             } else {
-                                $params[$paramName] = array($params[$paramName], $paramValue);
+                                $params[$paramName] = [$params[$paramName], $paramValue];
                             }
                         } else {
                             $params[$paramName] = $paramValue;
@@ -661,14 +670,14 @@ class Horde_Icalendar
                 }
 
                 // Charset and encoding handling.
-                if ((isset($params['ENCODING']) &&
-                     Horde_String::upper($params['ENCODING']) == 'QUOTED-PRINTABLE') ||
-                    isset($params['QUOTED-PRINTABLE'])) {
+                if ((isset($params['ENCODING'])
+                     && Horde_String::upper($params['ENCODING']) == 'QUOTED-PRINTABLE')
+                    || isset($params['QUOTED-PRINTABLE'])) {
 
                     $value = quoted_printable_decode($value);
                     if (isset($params['CHARSET'])) {
                         $value = Horde_String::convertCharset($value, $params['CHARSET'], 'UTF-8');
-                     }
+                    }
                 } elseif (isset($params['CHARSET'])) {
                     $value = Horde_String::convertCharset($value, $params['CHARSET'], 'UTF-8');
                 }
@@ -677,174 +686,182 @@ class Horde_Icalendar
                 $tzid = isset($params['TZID']) ? trim($params['TZID'], '\"') : false;
 
                 switch ($tag) {
-                // Date fields.
-                case 'COMPLETED':
-                case 'CREATED':
-                case 'LAST-MODIFIED':
-                case 'X-MOZ-LASTACK':
-                case 'X-MOZ-SNOOZE-TIME':
-                    $this->setAttribute($tag, $this->_parseDateTime($value, $tzid), $params);
-                    break;
-
-                case 'BDAY':
-                case 'X-ANNIVERSARY':
-                    $this->setAttribute($tag, $this->_parseDate($value), $params);
-                    break;
-
-                case 'DTEND':
-                case 'DTSTART':
-                case 'DTSTAMP':
-                case 'DUE':
-                case 'AALARM':
-                case 'RECURRENCE-ID':
-                    // types like AALARM may contain additional data after a ;
-                    // ignore these.
-                    $ts = explode(';', $value);
-                    if (isset($params['VALUE']) && $params['VALUE'] == 'DATE') {
-                        $this->setAttribute($tag, $this->_parseDate($ts[0]), $params);
-                    } else {
-                        $this->setAttribute($tag, $this->_parseDateTime($ts[0], $tzid), $params);
-                    }
-                    break;
-
-                case 'TRIGGER':
-                    if (isset($params['VALUE']) &&
-                        $params['VALUE'] == 'DATE-TIME') {
-                            $this->setAttribute($tag, $this->_parseDateTime($value, $tzid), $params);
-                    } else {
-                        $this->setAttribute($tag, $this->_parseDuration($value), $params);
-                    }
-                    break;
-
-                // Comma seperated dates.
-                case 'EXDATE':
-                case 'RDATE':
-                    if (!strlen($value)) {
+                    // Date fields.
+                    case 'COMPLETED':
+                    case 'CREATED':
+                    case 'LAST-MODIFIED':
+                    case 'X-MOZ-LASTACK':
+                    case 'X-MOZ-SNOOZE-TIME':
+                        $this->setAttribute($tag, $this->_parseDateTime($value, $tzid), $params);
                         break;
-                    }
-                    $dates = array();
-                    $separator = $this->_oldFormat ? ';' : ',';
-                    preg_match_all('/' . $separator . '([^' . $separator . ']*)/', $separator . $value, $values);
 
-                    foreach ($values[1] as $value) {
-                        $stamp = $this->_parseDateTime($value);
-                        if (!is_int($stamp)) {
-                            continue;
-                        }
-                        $dates[] = array('year' => date('Y', $stamp),
-                                         'month' => date('m', $stamp),
-                                         'mday' => date('d', $stamp));
-                    }
-                    $this->setAttribute($tag, isset($dates[0]) ? $dates[0] : null, $params, true, $dates);
-                    break;
+                    case 'BDAY':
+                    case 'X-ANNIVERSARY':
+                        $this->setAttribute($tag, $this->_parseDate($value), $params);
+                        break;
 
-                // Duration fields.
-                case 'DURATION':
-                    $this->setAttribute($tag, $this->_parseDuration($value), $params);
-                    break;
-
-                // Period of time fields.
-                case 'FREEBUSY':
-                    $periods = array();
-                    preg_match_all('/,([^,]*)/', ',' . $value, $values);
-                    foreach ($values[1] as $value) {
-                        $periods[] = $this->_parsePeriod($value);
-                    }
-
-                    $this->setAttribute($tag, isset($periods[0]) ? $periods[0] : null, $params, true, $periods);
-                    break;
-
-                // UTC offset fields.
-                case 'TZOFFSETFROM':
-                case 'TZOFFSETTO':
-                    $this->setAttribute($tag, $this->_parseUtcOffset($value), $params);
-                    break;
-
-                // Integer fields.
-                case 'PERCENT-COMPLETE':
-                case 'PRIORITY':
-                case 'REPEAT':
-                case 'SEQUENCE':
-                    $this->setAttribute($tag, intval($value), $params);
-                    break;
-
-                // Geo fields.
-                case 'GEO':
-                    if ($value) {
-                        if ($this->_oldFormat) {
-                            $floats = explode(',', $value);
-                            $value = array('latitude' => floatval($floats[1]),
-                                           'longitude' => floatval($floats[0]));
-                        } elseif ($this->_version == '4.0' && $this->type == 'vcard') {
-                            $floats = explode(',', $value);
-                            $value = array('latitude' => floatval($floats[1]),
-                                           'longitude' => floatval($floats[0]));
+                    case 'DTEND':
+                    case 'DTSTART':
+                    case 'DTSTAMP':
+                    case 'DUE':
+                    case 'AALARM':
+                    case 'RECURRENCE-ID':
+                        // types like AALARM may contain additional data after a ;
+                        // ignore these.
+                        $ts = explode(';', $value);
+                        if (isset($params['VALUE']) && $params['VALUE'] == 'DATE') {
+                            $this->setAttribute($tag, $this->_parseDate($ts[0]), $params);
                         } else {
-                            $floats = explode(';', $value);
-                            $value = array('latitude' => floatval($floats[0]),
-                                           'longitude' => floatval($floats[1]));
+                            $this->setAttribute($tag, $this->_parseDateTime($ts[0], $tzid), $params);
                         }
-                    }
-                    $this->setAttribute($tag, $value, $params);
-                    break;
+                        break;
 
-                // Recursion fields.
-                case 'EXRULE':
-                case 'RRULE':
-                    $this->setAttribute($tag, trim($value), $params);
-                    break;
+                    case 'TRIGGER':
+                        if (isset($params['VALUE'])
+                            && $params['VALUE'] == 'DATE-TIME') {
+                            $this->setAttribute($tag, $this->_parseDateTime($value, $tzid), $params);
+                        } else {
+                            $this->setAttribute($tag, $this->_parseDuration($value), $params);
+                        }
+                        break;
 
-                // ADR, ORG and N are lists seperated by unescaped semicolons
-                // with a specific number of slots.
-                case 'ADR':
-                case 'N':
-                case 'ORG':
-                    $value = trim($value);
-                    // As of rfc 2426 2.4.2 semicolon, comma, and colon must
-                    // be escaped (comma is unescaped after splitting below).
-                    $value = str_replace(array('\\n', '\\N', '\\;', '\\:'),
-                                         array($this->_newline, $this->_newline, ';', ':'),
-                                         $value);
+                        // Comma seperated dates.
+                    case 'EXDATE':
+                    case 'RDATE':
+                        if (!strlen($value)) {
+                            break;
+                        }
+                        $dates = [];
+                        $separator = $this->_oldFormat ? ';' : ',';
+                        preg_match_all('/' . $separator . '([^' . $separator . ']*)/', $separator . $value, $values);
 
-                    // Split by unescaped semicolons:
-                    $values = preg_split('/(?<!\\\\);/', $value);
-                    $value = str_replace(
-                        array('\\;', '\\,'), array(';', ','), $value
-                    );
-                    $values = str_replace(
-                        array('\\;', '\\,'), array(';', ','), $values
-                    );
-                    $this->setAttribute($tag, trim($value), $params, true, $values);
-                    break;
+                        foreach ($values[1] as $value) {
+                            $stamp = $this->_parseDateTime($value);
+                            if (!is_int($stamp)) {
+                                continue;
+                            }
+                            $dates[] = ['year' => date('Y', $stamp),
+                                'month' => date('m', $stamp),
+                                'mday' => date('d', $stamp)];
+                        }
+                        $this->setAttribute($tag, $dates[0] ?? null, $params, true, $dates);
+                        break;
 
-                // String fields.
-                default:
-                    if ($this->_oldFormat) {
-                        // vCalendar 1.0 and vCard 2.1 only escape semicolons
-                        // and use unescaped semicolons to create lists.
+                        // Duration fields.
+                    case 'DURATION':
+                        $this->setAttribute($tag, $this->_parseDuration($value), $params);
+                        break;
+
+                        // Period of time fields.
+                    case 'FREEBUSY':
+                        $periods = [];
+                        preg_match_all('/,([^,]*)/', ',' . $value, $values);
+                        foreach ($values[1] as $value) {
+                            $periods[] = $this->_parsePeriod($value);
+                        }
+
+                        $this->setAttribute($tag, $periods[0] ?? null, $params, true, $periods);
+                        break;
+
+                        // UTC offset fields.
+                    case 'TZOFFSETFROM':
+                    case 'TZOFFSETTO':
+                        $this->setAttribute($tag, $this->_parseUtcOffset($value), $params);
+                        break;
+
+                        // Integer fields.
+                    case 'PERCENT-COMPLETE':
+                    case 'PRIORITY':
+                    case 'REPEAT':
+                    case 'SEQUENCE':
+                        $this->setAttribute($tag, intval($value), $params);
+                        break;
+
+                        // Geo fields.
+                    case 'GEO':
+                        if ($value) {
+                            if ($this->_oldFormat) {
+                                $floats = explode(',', $value);
+                                $value = ['latitude' => floatval($floats[1]),
+                                    'longitude' => floatval($floats[0])];
+                            } elseif ($this->_version == '4.0' && $this->type == 'vcard') {
+                                $floats = explode(',', $value);
+                                $value = ['latitude' => floatval($floats[1]),
+                                    'longitude' => floatval($floats[0])];
+                            } else {
+                                $floats = explode(';', $value);
+                                $value = ['latitude' => floatval($floats[0]),
+                                    'longitude' => floatval($floats[1])];
+                            }
+                        }
+                        $this->setAttribute($tag, $value, $params);
+                        break;
+
+                        // Recursion fields.
+                    case 'EXRULE':
+                    case 'RRULE':
+                        $this->setAttribute($tag, trim($value), $params);
+                        break;
+
+                        // ADR, ORG and N are lists seperated by unescaped semicolons
+                        // with a specific number of slots.
+                    case 'ADR':
+                    case 'N':
+                    case 'ORG':
                         $value = trim($value);
+                        // As of rfc 2426 2.4.2 semicolon, comma, and colon must
+                        // be escaped (comma is unescaped after splitting below).
+                        $value = str_replace(
+                            ['\\n', '\\N', '\\;', '\\:'],
+                            [$this->_newline, $this->_newline, ';', ':'],
+                            $value
+                        );
+
                         // Split by unescaped semicolons:
                         $values = preg_split('/(?<!\\\\);/', $value);
-                        $value = str_replace('\\;', ';', $value);
-                        $values = str_replace('\\;', ';', $values);
+                        $value = str_replace(
+                            ['\\;', '\\,'],
+                            [';', ','],
+                            $value
+                        );
+                        $values = str_replace(
+                            ['\\;', '\\,'],
+                            [';', ','],
+                            $values
+                        );
                         $this->setAttribute($tag, trim($value), $params, true, $values);
-                    } else {
-                        $value = trim($value);
-                        // As of rfc 2426 2.4.2 semicolon, comma, and colon
-                        // must be escaped (comma is unescaped after splitting
-                        // below).
-                        $value = str_replace(array('\\n', '\\N', '\\;', '\\:', '\\\\'),
-                                             array($this->_newline, $this->_newline, ';', ':', '\\'),
-                                             $value);
+                        break;
 
-                        // Split by unescaped commas.
-                        $values = preg_split('/(?<!\\\\),/', $value);
-                        $value = str_replace('\\,', ',', $value);
-                        $values = str_replace('\\,', ',', $values);
+                        // String fields.
+                    default:
+                        if ($this->_oldFormat) {
+                            // vCalendar 1.0 and vCard 2.1 only escape semicolons
+                            // and use unescaped semicolons to create lists.
+                            $value = trim($value);
+                            // Split by unescaped semicolons:
+                            $values = preg_split('/(?<!\\\\);/', $value);
+                            $value = str_replace('\\;', ';', $value);
+                            $values = str_replace('\\;', ';', $values);
+                            $this->setAttribute($tag, trim($value), $params, true, $values);
+                        } else {
+                            $value = trim($value);
+                            // As of rfc 2426 2.4.2 semicolon, comma, and colon
+                            // must be escaped (comma is unescaped after splitting
+                            // below).
+                            $value = str_replace(
+                                ['\\n', '\\N', '\\;', '\\:', '\\\\'],
+                                [$this->_newline, $this->_newline, ';', ':', '\\'],
+                                $value
+                            );
 
-                        $this->setAttribute($tag, trim($value), $params, true, $values);
-                    }
-                    break;
+                            // Split by unescaped commas.
+                            $values = preg_split('/(?<!\\\\),/', $value);
+                            $value = str_replace('\\,', ',', $value);
+                            $values = str_replace('\\,', ',', $values);
+
+                            $this->setAttribute($tag, trim($value), $params, true, $values);
+                        }
+                        break;
                 }
             }
         }
@@ -902,9 +919,9 @@ class Horde_Icalendar
 
         // VERSION is not allowed for entries enclosed in VCALENDAR/ICALENDAR,
         // as it is part of the enclosing VCALENDAR/ICALENDAR. See rfc2445
-        if ($base !== 'VEVENT' && $base !== 'VTODO' && $base !== 'VALARM' &&
-            $base !== 'VJOURNAL' && $base !== 'VFREEBUSY' &&
-            $base != 'VTIMEZONE' && $base != 'STANDARD' && $base != 'DAYLIGHT') {
+        if ($base !== 'VEVENT' && $base !== 'VTODO' && $base !== 'VALARM'
+            && $base !== 'VJOURNAL' && $base !== 'VFREEBUSY'
+            && $base != 'VTIMEZONE' && $base != 'STANDARD' && $base != 'DAYLIGHT') {
             // Ensure that version is the first attribute.
             $result .= 'VERSION:' . $this->_version . $this->_newline;
         }
@@ -924,8 +941,8 @@ class Horde_Icalendar
                         continue;
                     }
                     /* Skip VALUE=DATE for vCalendar 1.0 data, not allowed. */
-                    if ($this->_oldFormat &&
-                        $param_name == 'VALUE' && $param_value == 'DATE') {
+                    if ($this->_oldFormat
+                        && $param_name == 'VALUE' && $param_value == 'DATE') {
                         continue;
                     }
 
@@ -933,7 +950,7 @@ class Horde_Icalendar
                         $params_str .= ";$param_name";
                     } else {
                         if (!is_array($param_value)) {
-                            $param_value = array($param_value);
+                            $param_value = [$param_value];
                         }
                         foreach ($param_value as &$one_param_value) {
                             $len = strlen($one_param_value);
@@ -942,15 +959,15 @@ class Horde_Icalendar
                             for ($i = 0; $i < $len; ++$i) {
                                 $ord = ord($one_param_value[$i]);
                                 // Accept only valid characters.
-                                if ($ord == 9 || $ord == 32 || $ord == 33 ||
-                                    ($ord >= 35 && $ord <= 126) ||
-                                    $ord >= 128) {
+                                if ($ord == 9 || $ord == 32 || $ord == 33
+                                    || ($ord >= 35 && $ord <= 126)
+                                    || $ord >= 128) {
                                     $safe_value .= $one_param_value[$i];
                                     // Characters above 128 do not need to be
                                     // quoted as per RFC2445 but Outlook requires
                                     // this.
-                                    if ($ord == 44 || $ord == 58 || $ord == 59 ||
-                                        $ord >= 128) {
+                                    if ($ord == 44 || $ord == 58 || $ord == 59
+                                        || $ord >= 128) {
                                         $quote = true;
                                     }
                                 }
@@ -967,193 +984,199 @@ class Horde_Icalendar
 
             $value = $attribute['value'];
             switch ($name) {
-            // Date fields.
-            case 'COMPLETED':
-            case 'CREATED':
-            case 'DCREATED':
-            case 'LAST-MODIFIED':
-            case 'X-MOZ-LASTACK':
-            case 'X-MOZ-SNOOZE-TIME':
-                $value = $this->_exportDateTime($value);
-                break;
+                // Date fields.
+                case 'COMPLETED':
+                case 'CREATED':
+                case 'DCREATED':
+                case 'LAST-MODIFIED':
+                case 'X-MOZ-LASTACK':
+                case 'X-MOZ-SNOOZE-TIME':
+                    $value = $this->_exportDateTime($value);
+                    break;
 
-            case 'DTEND':
-            case 'DTSTART':
-            case 'DTSTAMP':
-            case 'DUE':
-            case 'AALARM':
-            case 'RECURRENCE-ID':
-                $floating = $base == 'STANDARD'
-                    || $base == 'DAYLIGHT'
-                    || isset($params['TZID']);
-                if (isset($params['VALUE'])) {
-                    if ($params['VALUE'] == 'DATE') {
-                        // VCALENDAR 1.0 uses T000000 - T235959 for all day events:
-                        if ($this->_oldFormat && $name == 'DTEND') {
-                            $d = new Horde_Date($value);
-                            $value = new Horde_Date(array(
-                                'year' => $d->year,
-                                'month' => $d->month,
-                                'mday' => $d->mday - 1));
-                            $value = $this->_exportDate($value, '235959');
+                case 'DTEND':
+                case 'DTSTART':
+                case 'DTSTAMP':
+                case 'DUE':
+                case 'AALARM':
+                case 'RECURRENCE-ID':
+                    $floating = $base == 'STANDARD'
+                        || $base == 'DAYLIGHT'
+                        || isset($params['TZID']);
+                    if (isset($params['VALUE'])) {
+                        if ($params['VALUE'] == 'DATE') {
+                            // VCALENDAR 1.0 uses T000000 - T235959 for all day events:
+                            if ($this->_oldFormat && $name == 'DTEND') {
+                                $d = new Horde_Date($value);
+                                $value = new Horde_Date([
+                                    'year' => $d->year,
+                                    'month' => $d->month,
+                                    'mday' => $d->mday - 1]);
+                                $value = $this->_exportDate($value, '235959');
+                            } else {
+                                $value = $this->_exportDate($value, '000000');
+                            }
                         } else {
-                            $value = $this->_exportDate($value, '000000');
+                            $value = $this->_exportDateTime($value, $floating);
                         }
                     } else {
                         $value = $this->_exportDateTime($value, $floating);
                     }
-                } else {
-                    $value = $this->_exportDateTime($value, $floating);
-                }
-                break;
+                    break;
 
-            // Comma seperated dates.
-            case 'EXDATE':
-            case 'RDATE':
-                $floating = $base == 'STANDARD' || $base == 'DAYLIGHT';
-                $dates = array();
-                foreach ($value as $date) {
-                    if (isset($params['VALUE'])) {
-                        if ($params['VALUE'] == 'DATE') {
-                            $dates[] = $this->_exportDate($date, '000000');
-                        } elseif ($params['VALUE'] == 'PERIOD') {
-                            $dates[] = $this->_exportPeriod($date);
+                    // Comma seperated dates.
+                case 'EXDATE':
+                case 'RDATE':
+                    $floating = $base == 'STANDARD' || $base == 'DAYLIGHT';
+                    $dates = [];
+                    foreach ($value as $date) {
+                        if (isset($params['VALUE'])) {
+                            if ($params['VALUE'] == 'DATE') {
+                                $dates[] = $this->_exportDate($date, '000000');
+                            } elseif ($params['VALUE'] == 'PERIOD') {
+                                $dates[] = $this->_exportPeriod($date);
+                            } else {
+                                $dates[] = $this->_exportDateTime($date, $floating);
+                            }
                         } else {
                             $dates[] = $this->_exportDateTime($date, $floating);
                         }
-                    } else {
-                        $dates[] = $this->_exportDateTime($date, $floating);
                     }
-                }
-                $value = implode($this->_oldFormat ? ';' : ',', $dates);
-                break;
+                    $value = implode($this->_oldFormat ? ';' : ',', $dates);
+                    break;
 
-            case 'TRIGGER':
-                if (isset($params['VALUE'])) {
-                    if ($params['VALUE'] == 'DATE-TIME') {
-                        $value = $this->_exportDateTime($value);
-                    } elseif ($params['VALUE'] == 'DURATION') {
+                case 'TRIGGER':
+                    if (isset($params['VALUE'])) {
+                        if ($params['VALUE'] == 'DATE-TIME') {
+                            $value = $this->_exportDateTime($value);
+                        } elseif ($params['VALUE'] == 'DURATION') {
+                            $value = $this->_exportDuration($value);
+                        }
+                    } else {
                         $value = $this->_exportDuration($value);
                     }
-                } else {
+                    break;
+
+                    // Duration fields.
+                case 'DURATION':
                     $value = $this->_exportDuration($value);
-                }
-                break;
+                    break;
 
-            // Duration fields.
-            case 'DURATION':
-                $value = $this->_exportDuration($value);
-                break;
-
-            // Period of time fields.
-            case 'FREEBUSY':
-                $value_str = '';
-                foreach ($value as $period) {
-                    $value_str .= empty($value_str) ? '' : ',';
-                    $value_str .= $this->_exportPeriod($period);
-                }
-                $value = $value_str;
-                break;
-
-            // UTC offset fields.
-            case 'TZOFFSETFROM':
-            case 'TZOFFSETTO':
-                $value = $this->_exportUtcOffset($value);
-                break;
-
-            // Integer fields.
-            case 'PERCENT-COMPLETE':
-            case 'PRIORITY':
-            case 'REPEAT':
-            case 'SEQUENCE':
-                $value = "$value";
-                break;
-
-            // Geo fields.
-            case 'GEO':
-                if ($this->_oldFormat) {
-                    $value = $value['longitude'] . ',' . $value['latitude'];
-                } elseif ($this->type == 'vcard' && $this->_version == '4.0') {
-                    if (is_array($value)) {
-                        $value = 'geo:' . $value['latitude'] . ',' . $value['longitude'];
+                    // Period of time fields.
+                case 'FREEBUSY':
+                    $value_str = '';
+                    foreach ($value as $period) {
+                        $value_str .= empty($value_str) ? '' : ',';
+                        $value_str .= $this->_exportPeriod($period);
                     }
-                    // supplied array already formed to URI by setValue. Nothing to do.
-                } else {
-                    $value = $value['latitude'] . ';' . $value['longitude'];
-                }
-                break;
+                    $value = $value_str;
+                    break;
 
-            // Recurrence fields.
-            case 'EXRULE':
-            case 'RRULE':
-                break;
+                    // UTC offset fields.
+                case 'TZOFFSETFROM':
+                case 'TZOFFSETTO':
+                    $value = $this->_exportUtcOffset($value);
+                    break;
 
-            default:
-                if ($this->_oldFormat) {
-                    /* vcard 2.1 and vcalendar 1.0 escape only
-                     * semicolons */
-                    if (is_array($attribute['values']) &&
-                        count($attribute['values'])) {
-                        $values = $attribute['values'];
-                        if ($name == 'N' || $name == 'ADR' || $name == 'ORG') {
-                            $glue = ';';
-                        } else {
-                            $glue = ',';
+                    // Integer fields.
+                case 'PERCENT-COMPLETE':
+                case 'PRIORITY':
+                case 'REPEAT':
+                case 'SEQUENCE':
+                    $value = "$value";
+                    break;
+
+                    // Geo fields.
+                case 'GEO':
+                    if ($this->_oldFormat) {
+                        $value = $value['longitude'] . ',' . $value['latitude'];
+                    } elseif ($this->type == 'vcard' && $this->_version == '4.0') {
+                        if (is_array($value)) {
+                            $value = 'geo:' . $value['latitude'] . ',' . $value['longitude'];
                         }
-                        $values = str_replace(';', '\\;', $values);
-                        $value = implode($glue, $values);
+                        // supplied array already formed to URI by setValue. Nothing to do.
                     } else {
-                        $value = str_replace(';', '\\;', $value);
+                        $value = $value['latitude'] . ';' . $value['longitude'];
                     }
-                    // Text containing newlines or ASCII >= 127 must be BASE64
-                    // or QUOTED-PRINTABLE encoded. Currently we use
-                    // QUOTED-PRINTABLE as default.
-                    if (preg_match("/[^\x20-\x7F]/", $value) &&
-                        empty($params['ENCODING']))  {
-                        $params['ENCODING'] = 'QUOTED-PRINTABLE';
-                        $params_str .= ';ENCODING=QUOTED-PRINTABLE';
-                        // Add CHARSET as well. At least the synthesis client
-                        // gets confused otherwise
-                        if (empty($params['CHARSET'])) {
-                            $params['CHARSET'] = 'UTF-8';
-                            $params_str .= ';CHARSET=' . $params['CHARSET'];
-                        }
-                    }
-                } else {
-                    if (is_array($attribute['values']) &&
-                        count($attribute['values'])) {
-                        $values = $attribute['values'];
-                        if (in_array($name, [ 'N', 'ADR', 'ORG', 'CLIENTPIDMAP'])) {
-                            $glue = ';';
+                    break;
+
+                    // Recurrence fields.
+                case 'EXRULE':
+                case 'RRULE':
+                    break;
+
+                default:
+                    if ($this->_oldFormat) {
+                        /* vcard 2.1 and vcalendar 1.0 escape only
+                         * semicolons */
+                        if (is_array($attribute['values'])
+                            && count($attribute['values'])) {
+                            $values = $attribute['values'];
+                            if ($name == 'N' || $name == 'ADR' || $name == 'ORG') {
+                                $glue = ';';
+                            } else {
+                                $glue = ',';
+                            }
+                            $values = str_replace(';', '\\;', $values);
+                            $value = implode($glue, $values);
                         } else {
-                            $glue = ',';
+                            $value = str_replace(';', '\\;', $value);
                         }
-                        // As of rfc 2426 2.5 semicolon and comma must be
-                        // escaped.
-                        $values = str_replace(array('\\', ';', ','),
-                                              array('\\\\', '\\;', '\\,'),
-                                              $values);
-                        $value = implode($glue, $values);
+                        // Text containing newlines or ASCII >= 127 must be BASE64
+                        // or QUOTED-PRINTABLE encoded. Currently we use
+                        // QUOTED-PRINTABLE as default.
+                        if (preg_match("/[^\x20-\x7F]/", $value)
+                            && empty($params['ENCODING'])) {
+                            $params['ENCODING'] = 'QUOTED-PRINTABLE';
+                            $params_str .= ';ENCODING=QUOTED-PRINTABLE';
+                            // Add CHARSET as well. At least the synthesis client
+                            // gets confused otherwise
+                            if (empty($params['CHARSET'])) {
+                                $params['CHARSET'] = 'UTF-8';
+                                $params_str .= ';CHARSET=' . $params['CHARSET'];
+                            }
+                        }
                     } else {
-                        // As of rfc 2426 2.5 semicolon and comma must be
-                        // escaped.
-                        $value = str_replace(array('\\', ';', ','),
-                                             array('\\\\', '\\;', '\\,'),
-                                             $value);
+                        if (is_array($attribute['values'])
+                            && count($attribute['values'])) {
+                            $values = $attribute['values'];
+                            if (in_array($name, [ 'N', 'ADR', 'ORG', 'CLIENTPIDMAP'])) {
+                                $glue = ';';
+                            } else {
+                                $glue = ',';
+                            }
+                            // As of rfc 2426 2.5 semicolon and comma must be
+                            // escaped.
+                            $values = str_replace(
+                                ['\\', ';', ','],
+                                ['\\\\', '\\;', '\\,'],
+                                $values
+                            );
+                            $value = implode($glue, $values);
+                        } else {
+                            // As of rfc 2426 2.5 semicolon and comma must be
+                            // escaped.
+                            $value = str_replace(
+                                ['\\', ';', ','],
+                                ['\\\\', '\\;', '\\,'],
+                                $value
+                            );
+                        }
+                        $value = preg_replace('/\r?\n/', '\n', $value);
                     }
-                    $value = preg_replace('/\r?\n/', '\n', $value);
-                }
-                break;
+                    break;
             }
 
             $value = str_replace("\r", '', $value);
-            if (!empty($params['ENCODING']) &&
-                $params['ENCODING'] == 'QUOTED-PRINTABLE' &&
-                strlen(trim($value))) {
+            if (!empty($params['ENCODING'])
+                && $params['ENCODING'] == 'QUOTED-PRINTABLE'
+                && strlen(trim($value))) {
                 $result .= $name . $params_str . ':'
-                    . preg_replace(array('/(?<!\r)\n/', '/(?<!=)\r\n/'),
-                                   array("\r\n", "=0D=0A=\r\n "),
-                                   quoted_printable_encode($value))
+                    . preg_replace(
+                        ['/(?<!\r)\n/', '/(?<!=)\r\n/'],
+                        ["\r\n", "=0D=0A=\r\n "],
+                        quoted_printable_encode($value)
+                    )
                     . $this->_newline;
             } else {
                 $attr_string = $name . $params_str . ':' . $value;
@@ -1168,10 +1191,10 @@ class Horde_Icalendar
             }
         }
 
-        $tzs = array();
+        $tzs = [];
         foreach ($this->_components as $component) {
-            if (!($component instanceof Horde_Icalendar_Vtimezone) ||
-                !isset($tzs[$component->getAttribute('TZID')])) {
+            if (!($component instanceof Horde_Icalendar_Vtimezone)
+                || !isset($tzs[$component->getAttribute('TZID')])) {
                 $result .= $component->exportvCalendar();
                 if ($component instanceof Horde_Icalendar_Vtimezone) {
                     $tzs[$component->getAttribute('TZID')] = true;
@@ -1191,10 +1214,10 @@ class Horde_Icalendar
      */
     protected function _parseUtcOffset($text)
     {
-        $offset = array();
+        $offset = [];
 
         if (preg_match('/(\+|-)([0-9]{2})([0-9]{2})([0-9]{2})?/', $text, $timeParts)) {
-            $offset['ahead']  = (bool)($timeParts[1] == '+');
+            $offset['ahead']  = (bool) ($timeParts[1] == '+');
             $offset['hour']   = intval($timeParts[2]);
             $offset['minute'] = intval($timeParts[3]);
             if (isset($timeParts[4])) {
@@ -1213,10 +1236,10 @@ class Horde_Icalendar
      *
      * @return TODO
      */
-    function _exportUtcOffset($value)
+    public function _exportUtcOffset($value)
     {
-        $offset = ($value['ahead'] ? '+' : '-') .
-            sprintf('%02d%02d', $value['hour'], $value['minute']);
+        $offset = ($value['ahead'] ? '+' : '-')
+            . sprintf('%02d%02d', $value['hour'], $value['minute']);
 
         if (isset($value['second'])) {
             $offset .= sprintf('%02d', $value['second']);
@@ -1238,9 +1261,9 @@ class Horde_Icalendar
         $start = $this->_parseDateTime($periodParts[0]);
 
         if ($duration = $this->_parseDuration($periodParts[1])) {
-            return array('start' => $start, 'duration' => $duration);
+            return ['start' => $start, 'duration' => $duration];
         } elseif ($end = $this->_parseDateTime($periodParts[1])) {
-            return array('start' => $start, 'end' => $end);
+            return ['start' => $start, 'end' => $end];
         }
     }
 
@@ -1279,7 +1302,7 @@ class Horde_Icalendar
             return false;
         }
 
-        $change_times = array();
+        $change_times = [];
         foreach ($vtimezone->getComponents() as $o) {
             $change_times = array_merge(
                 $change_times,
@@ -1293,7 +1316,7 @@ class Horde_Icalendar
 
         usort(
             $change_times,
-            function($a, $b) {
+            function ($a, $b) {
                 if (!$a['end']) {
                     if (!$b['end']) {
                         return $a['time'] - $b['time'];
@@ -1308,13 +1331,19 @@ class Horde_Icalendar
         );
 
         // Time is arbitrarily based on UTC for comparison.
-        $t = @gmmktime($time['hour'], $time['minute'], $time['second'],
-                       $date['month'], $date['mday'], $date['year']);
+        $t = @gmmktime(
+            $time['hour'],
+            $time['minute'],
+            $time['second'],
+            $date['month'],
+            $date['mday'],
+            $date['year']
+        );
 
         // First check for the first change time that isn't expired (from POV of
         // $time) and is after $t.
         $n = count($change_times);
-        for ($i = 0, $n = count($change_times); $i < $n -1; $i++) {
+        for ($i = 0, $n = count($change_times); $i < $n - 1; $i++) {
             if (!$this->_checkEndDate($t, $change_times[$i])) {
                 continue;
             }
@@ -1330,9 +1359,9 @@ class Horde_Icalendar
             // transition will incorrectly match due to the way we parse the
             // 'end' times. There *may* be a more correct way to do this by
             // sorting the transitions/handling 'end' values differently.
-            if (($t >= $change_times[$i]['time']) &&
-                ($t < $change_times[$i + 1]['time']) &&
-                $this->_checkEndDate($t, $change_times[$i + 1])) {
+            if (($t >= $change_times[$i]['time'])
+                && ($t < $change_times[$i + 1]['time'])
+                && $this->_checkEndDate($t, $change_times[$i + 1])) {
                 return $change_times[$i]['to'];
             }
         }
@@ -1360,7 +1389,7 @@ class Horde_Icalendar
         }
         if (strlen($times['end']) == 4) {
             $date = @gmmktime(0, 0, 0, 1, 1, $times['end']);
-             return ($date && $t < $date);
+            return ($date && $t < $date);
         }
 
         return ($t < $times['end']);
@@ -1415,29 +1444,41 @@ class Horde_Icalendar
                 // Or not
                 return $text;
             }
-            $dateParts = array($text, '000000');
+            $dateParts = [$text, '000000'];
         }
 
-        if (!($date = $this->_parseDate($dateParts[0])) ||
-            !($time = $this->_parseTime($dateParts[1]))) {
+        if (!($date = $this->_parseDate($dateParts[0]))
+            || !($time = $this->_parseTime($dateParts[1]))) {
             return $text;
         }
 
         // Get timezone info for date fields from $tzid and container.
-        $tzoffset = ($time['zone'] == 'Local' && $tzid &&
-                     ($this->_container instanceof Horde_Icalendar))
+        $tzoffset = ($time['zone'] == 'Local' && $tzid
+                     && ($this->_container instanceof Horde_Icalendar))
                      ? $this->_parseTZID($date, $time, $tzid)
                      : false;
         if ($time['zone'] == 'UTC' || $tzoffset !== false) {
-            $result = @gmmktime($time['hour'], $time['minute'], $time['second'],
-                                $date['month'], $date['mday'], $date['year']);
+            $result = @gmmktime(
+                $time['hour'],
+                $time['minute'],
+                $time['second'],
+                $date['month'],
+                $date['mday'],
+                $date['year']
+            );
             if ($result !== false && $tzoffset) {
                 $result -= $tzoffset;
             }
         } else {
             // We don't know the timezone so assume local timezone.
-            $result = @mktime($time['hour'], $time['minute'], $time['second'],
-                              $date['month'], $date['mday'], $date['year']);
+            $result = @mktime(
+                $time['hour'],
+                $time['minute'],
+                $time['second'],
+                $date['month'],
+                $date['mday'],
+                $date['year']
+            );
         }
 
         return ($result !== false) ? $result : $text;
@@ -1476,12 +1517,12 @@ class Horde_Icalendar
             return false;
         }
 
-        return array(
+        return [
             'hour' => $timeParts[1],
             'minute' => $timeParts[2],
             'second' => $timeParts[3],
-            'zone' => isset($timeParts[4]) ? 'UTC' : 'Local'
-        );
+            'zone' => isset($timeParts[4]) ? 'UTC' : 'Local',
+        ];
     }
 
     /**
@@ -1502,11 +1543,11 @@ class Horde_Icalendar
             return false;
         }
 
-        return array(
+        return [
             'year' => $match[1],
             'month' => $match[2],
-            'mday' => $match[3]
-        );
+            'mday' => $match[3],
+        ];
     }
 
     /**
@@ -1522,7 +1563,7 @@ class Horde_Icalendar
     protected function _exportDate($value, $autoconvert = false)
     {
         if (is_object($value)) {
-            $value = array('year' => $value->year, 'month' => $value->month, 'mday' => $value->mday);
+            $value = ['year' => $value->year, 'month' => $value->month, 'mday' => $value->mday];
         }
 
         return ($autoconvert !== false && $this->_oldFormat)

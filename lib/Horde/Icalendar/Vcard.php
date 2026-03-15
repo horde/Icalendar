@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -24,24 +25,24 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
 {
     // The following were shamelessly yoinked from Contact_Vcard_Build
     // Part numbers for N components.
-    const N_FAMILY = 0;
-    const N_GIVEN = 1;
-    const N_ADDL = 2;
-    const N_PREFIX = 3;
-    const N_SUFFIX = 4;
+    public const N_FAMILY = 0;
+    public const N_GIVEN = 1;
+    public const N_ADDL = 2;
+    public const N_PREFIX = 3;
+    public const N_SUFFIX = 4;
 
     // Part numbers for ADR components.
-    const ADR_POB = 0;
-    const ADR_EXTEND = 1;
-    const ADR_STREET = 2;
-    const ADR_LOCALITY = 3;
-    const ADR_REGION = 4;
-    const ADR_POSTCODE = 5;
-    const ADR_COUNTRY = 6;
+    public const ADR_POB = 0;
+    public const ADR_EXTEND = 1;
+    public const ADR_STREET = 2;
+    public const ADR_LOCALITY = 3;
+    public const ADR_REGION = 4;
+    public const ADR_POSTCODE = 5;
+    public const ADR_COUNTRY = 6;
 
     // Part numbers for GEO components.
-    const GEO_LAT = 0;
-    const GEO_LON = 1;
+    public const GEO_LAT = 0;
+    public const GEO_LON = 1;
 
     /**
      * The component type of this class.
@@ -86,10 +87,12 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
      *                         not set use $value as single array element.
      */
     public function setAttribute(
-        $name, $value, $params = [],
-        $append = true, $values = false
-    )
-    {
+        $name,
+        $value,
+        $params = [],
+        $append = true,
+        $values = false
+    ) {
         if ($this->_version == '4.0') {
             // Do not accept attributes removed from the standard.
             // Rewrite to more appropriate newer representation if possible
@@ -182,9 +185,9 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
             return null;
         }
 
-        $name_arr = array();
+        $name_arr = [];
 
-        foreach (array(self::N_PREFIX, self::N_GIVEN, self::N_ADDL, self::N_FAMILY, self::N_SUFFIX) as $val) {
+        foreach ([self::N_PREFIX, self::N_GIVEN, self::N_ADDL, self::N_FAMILY, self::N_SUFFIX] as $val) {
             if (!empty($name_parts[$val])) {
                 $name_arr[] = $name_parts[$val];
             }
@@ -200,7 +203,7 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
      *
      * @return string  The RFC822-formatted email address.
      */
-    static function getBareEmail($address)
+    public static function getBareEmail($address)
     {
         $ob = new Horde_Mail_Rfc822_Address($address);
         return $ob->bare_address;

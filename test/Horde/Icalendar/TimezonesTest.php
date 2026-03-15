@@ -1,17 +1,22 @@
 <?php
+
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
  */
+
 namespace Horde\Icalendar;
-use \Horde_Test_Case;
-use \Horde_Icalendar;
-use \Horde_Date;
+
+use Horde_Test_Case;
+use Horde_Icalendar;
+use Horde_Date;
+
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
+ * @coversNothing
  */
 class TimezonesTest extends Horde_Test_Case
 {
@@ -43,14 +48,15 @@ class TimezonesTest extends Horde_Test_Case
         $this->assertStringEqualsFile(
             __DIR__ . '/fixtures/vTimezone/' . basename($file, 'ics') . 'txt',
             $result,
-            'Failed parsing file ' . basename($file));
+            'Failed parsing file ' . basename($file)
+        );
     }
 
     public function timezones()
     {
         return array_map(
-            function($a) {
-                return array($a);
+            function ($a) {
+                return [$a];
             },
             glob(__DIR__ . '/fixtures/vTimezone/*.ics')
         );

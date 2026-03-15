@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,14 +36,14 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
      *
      * @var array
      */
-    protected $_busyPeriods = array();
+    protected $_busyPeriods = [];
 
     /**
      * TODO
      *
      * @var array
      */
-    protected $_extraParams = array();
+    protected $_extraParams = [];
 
     /**
      * Parses a string containing vFreebusy data.
@@ -61,15 +62,24 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
                 continue;
             }
             foreach ($attribute['values'] as $value) {
-                $params = isset($attribute['params'])
-                    ? $attribute['params']
-                    : array();
+                $params = $attribute['params']
+                    ?? [];
                 if (isset($value['duration'])) {
-                    $this->addBusyPeriod('BUSY', $value['start'], null,
-                                         $value['duration'], $params);
+                    $this->addBusyPeriod(
+                        'BUSY',
+                        $value['start'],
+                        null,
+                        $value['duration'],
+                        $params
+                    );
                 } else {
-                    $this->addBusyPeriod('BUSY', $value['start'],
-                                         $value['end'], null, $params);
+                    $this->addBusyPeriod(
+                        'BUSY',
+                        $value['start'],
+                        $value['end'],
+                        null,
+                        $params
+                    );
                 }
             }
             unset($this->_attributes[$key]);
@@ -85,10 +95,12 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
     public function exportvCalendar()
     {
         foreach ($this->_busyPeriods as $start => $end) {
-            $periods = array(array('start' => $start, 'end' => $end));
-            $this->setAttribute('FREEBUSY', $periods,
-                                isset($this->_extraParams[$start])
-                                ? $this->_extraParams[$start] : array());
+            $periods = [['start' => $start, 'end' => $end]];
+            $this->setAttribute(
+                'FREEBUSY',
+                $periods,
+                $this->_extraParams[$start] ?? []
+            );
         }
 
         $res = $this->_exportvData('VFREEBUSY');
@@ -129,7 +141,8 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
             if (isset($name[0]['CN'])) {
                 return $name[0]['CN'];
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+        }
 
         try {
             $name = parse_url($this->getAttribute($attr));
@@ -201,7 +214,7 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
     public function getFreePeriods($startStamp, $endStamp)
     {
         $this->simplify();
-        $periods = array();
+        $periods = [];
 
         // Check that we have data for some part of this period.
         if ($this->getEnd() < $startStamp || $this->getStart() > $endStamp) {
@@ -245,9 +258,13 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
      *                           $end parameter will be ignored.
      * @param array   $extra     Additional parameters for this busy period.
      */
-    public function addBusyPeriod($type, $start, $end = null, $duration = null,
-                                  $extra = array())
-    {
+    public function addBusyPeriod(
+        $type,
+        $start,
+        $end = null,
+        $duration = null,
+        $extra = []
+    ) {
         if ($type == 'FREE') {
             // Make sure this period is not marked as busy.
             return false;
@@ -325,19 +342,24 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
      * @param boolean $simplify                    If true, simplify() will
      *                                             called after the merge.
      */
-    public function merge(Horde_Icalendar_Vfreebusy $freebusy,
-                          $simplify = true)
-    {
+    public function merge(
+        Horde_Icalendar_Vfreebusy $freebusy,
+        $simplify = true
+    ) {
         $extra = $freebusy->getExtraParams();
         foreach ($freebusy->getBusyPeriods() as $start => $end) {
             // This might simplify the busy periods without taking the
             // "simplify" flag into account.
-            $this->addBusyPeriod('BUSY', $start, $end, null,
-                                 isset($extra[$start])
-                                 ? $extra[$start] : array());
+            $this->addBusyPeriod(
+                'BUSY',
+                $start,
+                $end,
+                null,
+                $extra[$start] ?? []
+            );
         }
 
-        foreach (array('DTSTART', 'DTEND') as $val) {
+        foreach (['DTSTART', 'DTEND'] as $val) {
             try {
                 $thisattr = $this->getAttribute($val);
             } catch (Horde_Icalendar_Exception $e) {
@@ -351,20 +373,20 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
             }
 
             if (is_null($thisattr) && !is_null($thatattr)) {
-                $this->setAttribute($val, $thatattr, array(), false);
+                $this->setAttribute($val, $thatattr, [], false);
             } elseif (!is_null($thatattr)) {
                 switch ($val) {
-                case 'DTSTART':
-                    $set = ($thatattr < $thisattr);
-                    break;
+                    case 'DTSTART':
+                        $set = ($thatattr < $thisattr);
+                        break;
 
-                case 'DTEND':
-                    $set = ($thatattr > $thisattr);
-                    break;
+                    case 'DTEND':
+                        $set = ($thatattr > $thisattr);
+                        break;
                 }
 
                 if ($set) {
-                    $this->setAttribute($val, $thatattr, array(), false);
+                    $this->setAttribute($val, $thatattr, [], false);
                 }
             }
         }
@@ -383,7 +405,7 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
     public function simplify()
     {
         $clean = false;
-        $busy  = array($this->_busyPeriods, $this->_extraParams);
+        $busy  = [$this->_busyPeriods, $this->_extraParams];
         while (!$clean) {
             $result = $this->_simplify($busy[0], $busy[1]);
             $clean = $result === $busy;
@@ -405,17 +427,16 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
      *
      * @return array TODO
      */
-    protected function _simplify($busyPeriods, $extraParams = array())
+    protected function _simplify($busyPeriods, $extraParams = [])
     {
-        $checked = $checkedExtra = array();
+        $checked = $checkedExtra = [];
         $checkedEmpty = true;
 
         foreach ($busyPeriods as $start => $end) {
             if ($checkedEmpty) {
                 $checked[$start] = $end;
-                $checkedExtra[$start] = isset($extraParams[$start])
-                    ? $extraParams[$start]
-                    : array();
+                $checkedExtra[$start] = $extraParams[$start]
+                    ?? [];
                 $checkedEmpty = false;
             } else {
                 $added = false;
@@ -428,26 +449,23 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
                         unset($checkedExtra[$testStart]);
                         // Add replacing entry.
                         $checked[$start] = $end;
-                        $checkedExtra[$start] = isset($extraParams[$start])
-                            ? $extraParams[$start]
-                            : array();
+                        $checkedExtra[$start] = $extraParams[$start]
+                            ?? [];
                         $added = true;
                     } elseif ($start >= $testStart && $end <= $testEnd) {
                         // The new period lies fully within the old
                         // period. Just forget about it.
                         $added = true;
-                    } elseif (($end <= $testEnd && $end >= $testStart) ||
-                              ($start >= $testStart && $start <= $testEnd)) {
+                    } elseif (($end <= $testEnd && $end >= $testStart)
+                              || ($start >= $testStart && $start <= $testEnd)) {
                         // Now we are in trouble: Overlapping time periods. If
                         // we allow for additional parameters we cannot simply
                         // choose one of the two parameter sets. It's better
                         // to leave two separated time periods.
-                        $extra = isset($extraParams[$start])
-                            ? $extraParams[$start]
-                            : array();
-                        $testExtra = isset($checkedExtra[$testStart])
-                            ? $checkedExtra[$testStart]
-                            : array();
+                        $extra = $extraParams[$start]
+                            ?? [];
+                        $testExtra = $checkedExtra[$testStart]
+                            ?? [];
                         // Remove old period entry.
                         unset($checked[$testStart]);
                         unset($checkedExtra[$testStart]);
@@ -468,23 +486,20 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
                             // point will be the end of the first period.
                             $break = min($end, $testEnd);
                             $checked[$newStart] = $break;
-                            $checkedExtra[$newStart] =
-                                isset($extraParams[$newStart])
-                                ? $extraParams[$newStart]
-                                : array();
+                            $checkedExtra[$newStart]
+                                = $extraParams[$newStart]
+                                ?? [];
                             $checked[$break] = $newEnd;
                             $highStart = max($start, $testStart);
-                            $checkedExtra[$break] =
-                                isset($extraParams[$highStart])
-                                ? $extraParams[$highStart]
-                                : array();
+                            $checkedExtra[$break]
+                                = $extraParams[$highStart]
+                                ?? [];
 
                             // Ensure we also have the extra data in the
                             // extraParams.
-                            $extraParams[$break] =
-                                isset($extraParams[$highStart])
-                                ? $extraParams[$highStart]
-                                : array();
+                            $extraParams[$break]
+                                = $extraParams[$highStart]
+                                ?? [];
                         }
                         $added = true;
                     }
@@ -496,14 +511,13 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar
 
                 if (!$added) {
                     $checked[$start] = $end;
-                    $checkedExtra[$start] = isset($extraParams[$start])
-                        ? $extraParams[$start]
-                        : array();
+                    $checkedExtra[$start] = $extraParams[$start]
+                        ?? [];
                 }
             }
         }
 
-        return array($checked, $checkedExtra);
+        return [$checked, $checkedExtra];
     }
 
 }

@@ -1,19 +1,23 @@
 <?php
-/**
- * @category   Horde
- * @package    Icalendar
- * @subpackage UnitTests
- */
-namespace Horde\Icalendar;
-use \Horde_Test_Case;
-use \Horde_Icalendar_Vcard;
-use \Horde_Icalendar;
-use \Horde_Icalendar_Exception;
 
 /**
  * @category   Horde
  * @package    Icalendar
  * @subpackage UnitTests
+ */
+
+namespace Horde\Icalendar;
+
+use Horde_Test_Case;
+use Horde_Icalendar_Vcard;
+use Horde_Icalendar;
+use Horde_Icalendar_Exception;
+
+/**
+ * @category   Horde
+ * @package    Icalendar
+ * @subpackage UnitTests
+ * @coversNothing
  */
 class VcardV4Test extends Horde_Test_Case
 {
@@ -213,7 +217,7 @@ class VcardV4Test extends Horde_Test_Case
         $this->assertStringContainsString('KIND:org', $blank->exportVcalendar());
         $blank->setAttribute('KIND', 'location', [], false);
         $this->assertStringContainsString('KIND:location', $blank->exportVcalendar());
-        
+
     }
 
     public function testLabelToAdrProperty()
@@ -322,7 +326,7 @@ class VcardV4Test extends Horde_Test_Case
         // SHOW: Can correctly read and write property
         $blank->setAttribute('ORG', 'Horde LLC');
         $this->assertStringContainsString('ORG:Horde LLC', $blank->exportVcalendar());
-        // SHOW: Correctness of multipart ; 
+        // SHOW: Correctness of multipart ;
         $blank->setAttribute('ORG', '', [], false, ['ACME corp', 'Coyote Wear', 'Financial']);
         $this->assertStringContainsString('ORG:ACME corp;Coyote Wear;Financial', $blank->exportVcalendar());
     }

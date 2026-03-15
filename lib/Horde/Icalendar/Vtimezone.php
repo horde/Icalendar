@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -60,38 +61,42 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         try {
             $t = $child->getAttribute('TZOFFSETFROM');
         } catch (Horde_Icalendar_Exception $e) {
-            return array();
+            return [];
         }
         $result['from'] = ($t['hour'] * 60 * 60 + $t['minute'] * 60) * ($t['ahead'] ? 1 : -1);
 
         try {
             $t = $child->getAttribute('TZOFFSETTO');
         } catch (Horde_Icalendar_Exception $e) {
-            return array();
+            return [];
         }
         $result['to'] = ($t['hour'] * 60 * 60 + $t['minute'] * 60) * ($t['ahead'] ? 1 : -1);
 
         try {
             $start = $child->getAttribute('DTSTART');
         } catch (Horde_Icalendar_Exception $e) {
-            return array();
+            return [];
         }
         if (!is_int($start)) {
-            return array();
+            return [];
         }
         $start = getdate($start);
         if ($start['year'] > $year) {
-            return array();
+            return [];
         }
 
-        $results = array();
+        $results = [];
         try {
             $rdates = $child->getAttributeValues('RDATE');
             foreach ($rdates as $rdate) {
                 if ($rdate['year'] == $year || $rdate['year'] == $year - 1) {
                     $result['time'] = $result['end'] = gmmktime(
-                        $start['hours'], $start['minutes'], $start['seconds'],
-                        $rdate['month'], $rdate['mday'], $rdate['year']
+                        $start['hours'],
+                        $start['minutes'],
+                        $start['seconds'],
+                        $rdate['month'],
+                        $rdate['mday'],
+                        $rdate['year']
                     );
                     $results[] = $result;
                 }
@@ -113,49 +118,49 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         foreach ($rrules as $rrule) {
             $t = explode('=', $rrule);
             switch ($t[0]) {
-            case 'FREQ':
-                if ($t[1] != 'YEARLY') {
-                    return array();
-                }
-                break;
+                case 'FREQ':
+                    if ($t[1] != 'YEARLY') {
+                        return [];
+                    }
+                    break;
 
-            case 'INTERVAL':
-                if ($t[1] != '1') {
-                    return array();
-                }
-                break;
+                case 'INTERVAL':
+                    if ($t[1] != '1') {
+                        return [];
+                    }
+                    break;
 
-            case 'BYMONTH':
-                $month = intval($t[1]);
-                break;
+                case 'BYMONTH':
+                    $month = intval($t[1]);
+                    break;
 
-            case 'BYDAY':
-                $len = strspn($t[1], '1234567890-+');
-                if ($len == 0) {
-                    return array();
-                }
-                $weekday = substr($t[1], $len);
-                $weekdays = array(
-                    'SU' => 0,
-                    'MO' => 1,
-                    'TU' => 2,
-                    'WE' => 3,
-                    'TH' => 4,
-                    'FR' => 5,
-                    'SA' => 6
-                );
-                $weekday = $weekdays[$weekday];
-                $which = intval(substr($t[1], 0, $len));
-                break;
+                case 'BYDAY':
+                    $len = strspn($t[1], '1234567890-+');
+                    if ($len == 0) {
+                        return [];
+                    }
+                    $weekday = substr($t[1], $len);
+                    $weekdays = [
+                        'SU' => 0,
+                        'MO' => 1,
+                        'TU' => 2,
+                        'WE' => 3,
+                        'TH' => 4,
+                        'FR' => 5,
+                        'SA' => 6,
+                    ];
+                    $weekday = $weekdays[$weekday];
+                    $which = intval(substr($t[1], 0, $len));
+                    break;
 
-            case 'UNTIL':
-                $result['end'] = intval(substr($t[1], 0, 4));
-                break;
+                case 'UNTIL':
+                    $result['end'] = intval(substr($t[1], 0, 4));
+                    break;
             }
         }
 
         if (empty($month) || !isset($weekday)) {
-            return array();
+            return [];
         }
 
         // Get the timestamp for the first day of $month.
@@ -163,8 +168,14 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
             $year = $result['end'];
         }
 
-        $when = gmmktime($start['hours'], $start['minutes'], $start['seconds'],
-                         $month, 1, $year);
+        $when = gmmktime(
+            $start['hours'],
+            $start['minutes'],
+            $start['seconds'],
+            $month,
+            1,
+            $year
+        );
         // Get the day of the week for the first day of $month.
         $first_of_month_weekday = intval(gmstrftime('%w', $when));
 
