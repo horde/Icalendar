@@ -8,6 +8,7 @@
 
 namespace Horde\Icalendar;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Horde_Test_Case;
 use Horde_Icalendar;
 use Horde_Date;
@@ -28,6 +29,7 @@ class TimezonesTest extends Horde_Test_Case
     /**
      * @dataProvider timezones
      */
+    #[DataProvider('timezones')]
     public function testFile($file)
     {
         $result = '';
@@ -52,7 +54,7 @@ class TimezonesTest extends Horde_Test_Case
         );
     }
 
-    public function timezones()
+    public static function timezones()
     {
         return array_map(
             function ($a) {

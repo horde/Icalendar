@@ -8,6 +8,8 @@
 
 namespace Horde\Icalendar;
 
+use AllowDynamicProperties;
+
 use Horde_Test_Case;
 use Horde_Icalendar_Vcard;
 use Horde_Icalendar;
@@ -19,6 +21,7 @@ use Horde_Icalendar_Exception;
  * @subpackage UnitTests
  * @coversNothing
  */
+#[AllowDynamicProperties]
 class VcardV4Test extends Horde_Test_Case
 {
     public function setUp(): void

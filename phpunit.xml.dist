@@ -1,12 +1,12 @@
 <phpunit bootstrap="test/Horde/Icalendar/bootstrap.php" colors="true">
   <testsuites>
-    <testsuite>
+    <testsuite name="icalendar">
       <directory>test</directory>
     </testsuite>
   </testsuites>
-  <filter>
-    <whitelist>
-      <directory suffix=".php">lib</directory>
-    </whitelist>
-  </filter>
+    <source>
+      <include>
+        <directory suffix=".php">src</directory>
+      </include>
+    </source>
 </phpunit>

@@ -177,7 +177,7 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
             $year
         );
         // Get the day of the week for the first day of $month.
-        $first_of_month_weekday = intval(gmstrftime('%w', $when));
+        $first_of_month_weekday = intval(gmdate('w', $when));
 
         // Go to the first $weekday before first day of $month.
         if ($weekday >= $first_of_month_weekday) {
@@ -190,7 +190,7 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         if ($which < 0) {
             do {
                 $when += 60 * 60 * 24 * 7;
-            } while (intval(gmstrftime('%m', $when)) == $month);
+            } while (intval(gmdate('m', $when)) == $month);
         }
 
         // Calculate $weekday number $which.
