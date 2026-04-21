@@ -7,6 +7,7 @@
  */
 
 namespace Horde\Icalendar;
+use PHPUnit\Framework\Attributes\Depends;
 
 use Horde_Test_Case;
 use Horde_Icalendar;
@@ -142,6 +143,7 @@ class FreeBusyTest extends Horde_Test_Case
     /**
      * @depends testRead
      */
+    #[Depends('testRead')]
     public function testMerge($vfb)
     {
         // Create new freebusy object for merging

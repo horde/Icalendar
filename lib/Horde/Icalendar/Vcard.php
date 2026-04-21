@@ -121,7 +121,8 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
                 return $this->setAttribute('ADR', '', ['LABEL' => $value]);
             }
             if ($name == 'N') {
-                if (empty($values[0])) {
+                if (!isset($values[0]) || empty($values[0])) {
+                    $values =[];
                     $values[0] = $value;
                 }
                 // Ensure we always have 5 components
