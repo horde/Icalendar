@@ -127,8 +127,8 @@ class VcardV4Test extends Horde_Test_Case
         $blank = $this->blank;
         // SHOW: Can correctly read and write property
         $this->assertStringNotContainsString('EMAIL:', $blank->exportVcalendar());
-        $blank->setAttribute('EMAIL', 'lang@b1-systems.de');
-        $this->assertStringContainsString('EMAIL:lang@b1-systems.de', $blank->exportVcalendar());
+        $blank->setAttribute('EMAIL', 'ralf.lang@ralf-lang.de');
+        $this->assertStringContainsString('EMAIL:ralf.lang@ralf-lang.de', $blank->exportVcalendar());
     }
 
     public function testSupportFburl()
