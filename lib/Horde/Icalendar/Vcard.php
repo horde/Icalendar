@@ -122,7 +122,7 @@ class Horde_Icalendar_Vcard extends Horde_Icalendar
             }
             if ($name == 'N') {
                 if (!isset($values[0]) || empty($values[0])) {
-                    $values =[];
+                    $values = [];
                     $values[0] = $value;
                 }
                 // Ensure we always have 5 components
