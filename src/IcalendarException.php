@@ -16,18 +16,6 @@ declare(strict_types=1);
 
 namespace Horde\Icalendar;
 
-use Horde\Icalendar\Property\PropertyBag;
+use Throwable;
 
-interface Component
-{
-    public function getType(): string;
-
-    public function getProperties(): PropertyBag;
-
-    /** @return Component[] */
-    public function getChildren(): array;
-
-    public function addChild(self $child): void;
-
-    public function toString(): string;
-}
+interface IcalendarException extends Throwable {}

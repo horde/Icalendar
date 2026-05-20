@@ -14,20 +14,14 @@ declare(strict_types=1);
  * @package   Icalendar
  */
 
-namespace Horde\Icalendar;
+namespace Horde\Icalendar\Parser;
 
-use Horde\Icalendar\Property\PropertyBag;
-
-interface Component
+enum ParseError: string
 {
-    public function getType(): string;
-
-    public function getProperties(): PropertyBag;
-
-    /** @return Component[] */
-    public function getChildren(): array;
-
-    public function addChild(self $child): void;
-
-    public function toString(): string;
+    case MissingColon = 'missing_colon';
+    case InvalidName = 'invalid_name';
+    case InvalidParamName = 'invalid_param_name';
+    case UnterminatedQuotedString = 'unterminated_quoted_string';
+    case InvalidParamValue = 'invalid_param_value';
+    case EmptyLine = 'empty_line';
 }
