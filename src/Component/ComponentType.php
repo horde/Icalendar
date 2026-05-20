@@ -14,20 +14,18 @@ declare(strict_types=1);
  * @package   Icalendar
  */
 
-namespace Horde\Icalendar;
+namespace Horde\Icalendar\Component;
 
-use Horde\Icalendar\Property\PropertyBag;
-
-interface Component
+enum ComponentType: string
 {
-    public function getType(): string;
-
-    public function getProperties(): PropertyBag;
-
-    /** @return Component[] */
-    public function getChildren(): array;
-
-    public function addChild(self $child): void;
-
-    public function toString(): string;
+    case VCalendar = 'VCALENDAR';
+    case Vevent = 'VEVENT';
+    case Vtodo = 'VTODO';
+    case Vjournal = 'VJOURNAL';
+    case Vfreebusy = 'VFREEBUSY';
+    case Vtimezone = 'VTIMEZONE';
+    case Standard = 'STANDARD';
+    case Daylight = 'DAYLIGHT';
+    case Valarm = 'VALARM';
+    case VCard = 'VCARD';
 }

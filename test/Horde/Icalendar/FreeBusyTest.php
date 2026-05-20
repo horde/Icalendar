@@ -7,8 +7,8 @@
  */
 
 namespace Horde\Icalendar;
-use PHPUnit\Framework\Attributes\Depends;
 
+use PHPUnit\Framework\Attributes\Depends;
 use Horde_Test_Case;
 use Horde_Icalendar;
 use Horde_Icalendar_Vfreebusy;

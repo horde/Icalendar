@@ -9,7 +9,6 @@
 namespace Horde\Icalendar;
 
 use AllowDynamicProperties;
-
 use Horde_Test_Case;
 use Horde_Icalendar_Vcard;
 use Horde_Icalendar;
