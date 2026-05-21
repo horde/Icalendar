@@ -45,21 +45,25 @@ final readonly class OccurrenceSet implements Countable, IteratorAggregate
         $this->dates = $dates;
     }
 
+    /** Get the number of occurrences. */
     public function count(): int
     {
         return count($this->dates);
     }
 
+    /** Whether the set contains no occurrences. */
     public function isEmpty(): bool
     {
         return $this->dates === [];
     }
 
+    /** Get the earliest occurrence, or null if empty. */
     public function first(): ?DateTimeImmutable
     {
         return $this->dates[0] ?? null;
     }
 
+    /** Get the latest occurrence, or null if empty. */
     public function last(): ?DateTimeImmutable
     {
         if ($this->dates === []) {
@@ -69,6 +73,7 @@ final readonly class OccurrenceSet implements Countable, IteratorAggregate
         return $this->dates[count($this->dates) - 1];
     }
 
+    /** Whether the set contains the given date (compared by Y-m-d H:i:s). */
     public function contains(DateTimeImmutable $date): bool
     {
         $target = $date->format('Y-m-d H:i:s');

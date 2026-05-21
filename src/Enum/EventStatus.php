@@ -37,30 +37,36 @@ final readonly class EventStatus
         self::CANCELLED,
     ];
 
+    /** Create instance wrapping the given value. */
     private function __construct(
         public string $value,
     ) {}
 
+    /** Create an instance from a raw string value. */
     public static function from(string $value): self
     {
         return new self(strtoupper($value));
     }
 
+    /** Check whether the value is one of the RFC-defined constants. */
     public function isKnown(): bool
     {
         return in_array($this->value, self::KNOWN, true);
     }
 
+    /** Return the effective value, falling back to default if applicable. */
     public function effective(): string
     {
         return $this->value;
     }
 
+    /** Return the raw string representation. */
     public function toString(): string
     {
         return $this->value;
     }
 
+    /** Check equality by comparing underlying string values. */
     public function equals(self $other): bool
     {
         return $this->value === $other->value;

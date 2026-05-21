@@ -90,6 +90,7 @@ final class Attendee
         return new self(new Property('ATTENDEE', 'mailto:' . $email, $params));
     }
 
+    /** Get the attendee email address (stripped of mailto: prefix). */
     public function getEmail(): string
     {
         $val = $this->property->getValue();
@@ -99,12 +100,14 @@ final class Attendee
         return $val;
     }
 
+    /** Get the attendee display name (CN parameter). */
     public function getCommonName(): ?string
     {
         $val = $this->property->getParameter('CN')?->getValue();
         return ($val !== null && $val !== '') ? $val : null;
     }
 
+    /** Get the participation status, defaulting to NEEDS-ACTION. */
     public function getParticipationStatus(): ParticipationStatus
     {
         $raw = $this->property->getParameter('PARTSTAT')?->getValue();
@@ -113,6 +116,7 @@ final class Attendee
             : ParticipationStatus::from('NEEDS-ACTION');
     }
 
+    /** Get the attendee role, defaulting to REQ-PARTICIPANT. */
     public function getRole(): AttendeeRole
     {
         $raw = $this->property->getParameter('ROLE')?->getValue();
@@ -121,12 +125,14 @@ final class Attendee
             : AttendeeRole::from('REQ-PARTICIPANT');
     }
 
+    /** Get whether an RSVP response is requested. */
     public function getRsvp(): bool
     {
         $raw = $this->property->getParameter('RSVP')?->getValue();
         return strtoupper($raw ?? '') === 'TRUE';
     }
 
+    /** Get the schedule agent, defaulting to SERVER. */
     public function getScheduleAgent(): ScheduleAgent
     {
         $raw = $this->property->getParameter('SCHEDULE-AGENT')?->getValue();
@@ -135,6 +141,7 @@ final class Attendee
             : ScheduleAgent::from('SERVER');
     }
 
+    /** Get the calendar user type, defaulting to INDIVIDUAL. */
     public function getCuType(): CuType
     {
         $raw = $this->property->getParameter('CUTYPE')?->getValue();
@@ -169,16 +176,19 @@ final class Attendee
         );
     }
 
+    /** Set the participation status. */
     public function setParticipationStatus(ParticipationStatus $status): void
     {
         $this->property->setParameter('PARTSTAT', new Parameter('PARTSTAT', [$status->value]));
     }
 
+    /** Set the attendee role. */
     public function setRole(AttendeeRole $role): void
     {
         $this->property->setParameter('ROLE', new Parameter('ROLE', [$role->value]));
     }
 
+    /** Set or remove the RSVP flag. */
     public function setRsvp(bool $rsvp): void
     {
         if ($rsvp) {
@@ -188,16 +198,19 @@ final class Attendee
         }
     }
 
+    /** Set the attendee display name (CN parameter). */
     public function setCommonName(string $cn): void
     {
         $this->property->setParameter('CN', new Parameter('CN', [$cn]));
     }
 
+    /** Set the schedule agent. */
     public function setScheduleAgent(ScheduleAgent $agent): void
     {
         $this->property->setParameter('SCHEDULE-AGENT', new Parameter('SCHEDULE-AGENT', [$agent->value]));
     }
 
+    /** Get the underlying Property instance. */
     public function getProperty(): Property
     {
         return $this->property;

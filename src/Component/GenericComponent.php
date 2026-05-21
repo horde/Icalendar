@@ -33,12 +33,14 @@ final class GenericComponent extends AbstractComponent
 {
     private readonly string $type;
 
+    /** Create a generic component with the given type name. */
     public function __construct(string $type, ?PropertyBag $properties = null)
     {
         $this->type = strtoupper($type);
         parent::__construct($properties);
     }
 
+    /** Return the iCalendar component type identifier. */
     public function getType(): string
     {
         return $this->type;
