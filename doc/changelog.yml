@@ -72,6 +72,25 @@
     Add CI job for satis repo update
     no errors
     Development mode for Icalendar-3.0.0alpha5
+3.0.0-RC1:
+  api: 3.0.0-RC1
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-21
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: |-
+    feat: Implement full RFC 5545 compliance including canonical tests from RFC.
+    docs: Add README.md and UPGRADING.md
+    feat: Implement value objects, enums and a basic reader
+    feat: Recurrence interface and reference implementation wrapping Horde\Date\Recurrence
+    chore: metadata defaults
+    style: ws
+    feat: Foundation of a refactored icalendar/vcard parser/writer in PSR-4
+    test: Update test case ;)
+    Fix php deprecations and update to phpunit 12+
 2.1.8:
   api: 2.1.0
   state:

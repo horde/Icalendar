@@ -25,16 +25,16 @@
     "repositories": [],
     "require": {
         "php": "^7.4 || ^8",
-        "horde/date": "^3",
-        "horde/exception": "^3",
-        "horde/mail": "^3",
-        "horde/support": "^3",
-        "horde/translation": "^3",
-        "horde/util": "^3"
+        "horde/date": "^3 || dev-FRAMEWORK_6_0",
+        "horde/exception": "^3 || dev-FRAMEWORK_6_0",
+        "horde/mail": "^3 || dev-FRAMEWORK_6_0",
+        "horde/support": "^3 || dev-FRAMEWORK_6_0",
+        "horde/translation": "^3 || dev-FRAMEWORK_6_0",
+        "horde/util": "^3 || dev-FRAMEWORK_6_0"
     },
     "require-dev": {},
     "suggest": {
-        "horde/test": "^3"
+        "horde/test": "^3 || dev-FRAMEWORK_6_0"
     },
     "autoload": {
         "psr-0": {
@@ -51,5 +51,10 @@
     },
     "config": {
         "allow-plugins": {}
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-FRAMEWORK_6_0": "3.x-dev"
+        }
     }
 }
