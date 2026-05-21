@@ -28,59 +28,64 @@ use Horde\Icalendar\RootComponent;
 
 class VCalendar extends AbstractComponent implements RootComponent
 {
+    /** Get the iCalendar component type identifier. */
     public function getType(): string
     {
         return 'VCALENDAR';
     }
 
-    // =========================================================================
-    // Calendar-level properties
-    // =========================================================================
+    /** @section Calendar-level properties */
 
+    /** Get the iCalendar specification version. */
     public function getVersion(): ?string
     {
         return $this->getPropertyValue('VERSION');
     }
 
+    /** Set the iCalendar specification version. */
     public function setVersion(string $version = '2.0'): void
     {
         $this->setProperty('VERSION', $version);
     }
 
+    /** Get the product identifier. */
     public function getProdid(): ?string
     {
         return $this->getPropertyValue('PRODID');
     }
 
+    /** Set the product identifier. */
     public function setProdid(string $prodid): void
     {
         $this->setProperty('PRODID', $prodid);
     }
 
+    /** Get the calendar scale (e.g. GREGORIAN). */
     public function getCalscale(): ?string
     {
         return $this->getPropertyValue('CALSCALE');
     }
 
+    /** Set the calendar scale. */
     public function setCalscale(string $calscale = 'GREGORIAN'): void
     {
         $this->setProperty('CALSCALE', $calscale);
     }
 
+    /** Get the calendar method (e.g. REQUEST, REPLY). */
     public function getMethod(): ?CalendarMethod
     {
         $raw = $this->getPropertyValue('METHOD');
         return $raw !== null ? CalendarMethod::from($raw) : null;
     }
 
+    /** Set the calendar method. */
     public function setMethod(CalendarMethod $method): void
     {
         $this->setProperty('METHOD', $method->value);
     }
 
-    // =========================================================================
-    // Typed child component accessors
-    // =========================================================================
+    /** @section Typed child component accessors */
 
     /** @return list<Vevent> */
     public function getEvents(): array

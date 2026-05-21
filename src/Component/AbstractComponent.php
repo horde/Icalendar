@@ -42,17 +42,18 @@ abstract class AbstractComponent implements Component
     /** @var Component[] */
     private array $children = [];
 
+    /** Create a component with an optional pre-populated property bag. */
     public function __construct(?PropertyBag $properties = null)
     {
         $this->properties = $properties ?? new PropertyBag();
     }
 
+    /** Get the iCalendar component type identifier (e.g. VEVENT, VTODO). */
     abstract public function getType(): string;
 
-    // =========================================================================
-    // Component interface
-    // =========================================================================
+    /** @section Component interface */
 
+    /** Get the property bag for this component. */
     public function getProperties(): PropertyBag
     {
         return $this->properties;
@@ -64,15 +65,15 @@ abstract class AbstractComponent implements Component
         return $this->children;
     }
 
+    /** Add a child component. */
     public function addChild(Component $child): void
     {
         $this->children[] = $child;
     }
 
-    // =========================================================================
-    // Property convenience (delegates to bag)
-    // =========================================================================
+    /** @section Property convenience (delegates to bag) */
 
+    /** Get a single property value by name. */
     public function getPropertyValue(string $name): ?string
     {
         return $this->properties->getValue($name);
@@ -94,14 +95,13 @@ abstract class AbstractComponent implements Component
         $this->properties->add($name, $value, $parameters);
     }
 
+    /** Remove all properties with the given name. */
     public function removeProperty(string $name): void
     {
         $this->properties->remove($name);
     }
 
-    // =========================================================================
-    // Child component queries
-    // =========================================================================
+    /** @section Child component queries */
 
     /**
      * @return Component[]
@@ -116,6 +116,7 @@ abstract class AbstractComponent implements Component
         ));
     }
 
+    /** Get the first child component matching the given type. */
     public function getFirstChild(string $type): ?Component
     {
         $type = strtoupper($type);
@@ -129,6 +130,7 @@ abstract class AbstractComponent implements Component
         return null;
     }
 
+    /** Remove a specific child component by identity. */
     public function removeChild(Component $child): void
     {
         $this->children = array_values(array_filter(
@@ -137,10 +139,9 @@ abstract class AbstractComponent implements Component
         ));
     }
 
-    // =========================================================================
-    // Serialization
-    // =========================================================================
+    /** @section Serialization */
 
+    /** Serialize this component and its children to an iCalendar string. */
     public function toString(): string
     {
         $output = 'BEGIN:' . $this->getType() . "\r\n";
@@ -158,14 +159,13 @@ abstract class AbstractComponent implements Component
         return $output;
     }
 
+    /** Magic string conversion, delegates to toString(). */
     public function __toString(): string
     {
         return $this->toString();
     }
 
-    // =========================================================================
-    // Parsing
-    // =========================================================================
+    /** @section Parsing */
 
     /**
      * Parse an iCalendar/vCard string into a component tree.
@@ -231,9 +231,7 @@ abstract class AbstractComponent implements Component
         );
     }
 
-    // =========================================================================
-    // Line folding
-    // =========================================================================
+    /** @section Line folding */
 
     /**
      * Fold a content line at 75 octets per RFC 5545 §3.1.

@@ -24,14 +24,18 @@ use Horde\Icalendar\Property\PropertyBag;
 
 interface Component
 {
+    /** Return the iCalendar component type identifier (e.g. VEVENT, VTODO). */
     public function getType(): string;
 
+    /** Return the property bag containing all properties of this component. */
     public function getProperties(): PropertyBag;
 
     /** @return Component[] */
     public function getChildren(): array;
 
+    /** Add a child component (e.g. VALARM inside VEVENT). */
     public function addChild(self $child): void;
 
+    /** Serialize this component to its iCalendar string representation. */
     public function toString(): string;
 }

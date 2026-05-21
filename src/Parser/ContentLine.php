@@ -49,16 +49,19 @@ final readonly class ContentLine
         public array $errors = [],
     ) {}
 
+    /** Check whether a parameter exists by name. */
     public function hasParameter(string $name): bool
     {
         return isset($this->parameters[strtoupper($name)]);
     }
 
+    /** Get a parameter by name, or null if not present. */
     public function getParameter(string $name): ?Parameter
     {
         return $this->parameters[strtoupper($name)] ?? null;
     }
 
+    /** Whether recoverable parse errors were encountered. */
     public function hasErrors(): bool
     {
         return $this->errors !== [];

@@ -90,6 +90,7 @@ final class Unfolder
         }
     }
 
+    /** Find the byte position of the next line ending (CR or LF). */
     private function findLineEnding(string $input, int $pos, int $len): ?int
     {
         while ($pos < $len) {
@@ -114,6 +115,7 @@ final class Unfolder
         return null;
     }
 
+    /** Advance past a CR, LF, or CRLF sequence. */
     private function skipLineEnding(string $input, int $pos, int $len): int
     {
         if ($pos >= $len) {

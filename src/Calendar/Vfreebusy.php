@@ -30,21 +30,25 @@ use Horde\Icalendar\Value\Organizer;
 
 class Vfreebusy extends AbstractComponent
 {
+    /** Return the iCalendar component type identifier. */
     public function getType(): string
     {
         return 'VFREEBUSY';
     }
 
+    /** Get the UID property value. */
     public function getUid(): ?string
     {
         return $this->getPropertyValue('UID');
     }
 
+    /** Set the UID property value. */
     public function setUid(string $uid): void
     {
         $this->setProperty('UID', $uid);
     }
 
+    /** Get the start date/time of the free/busy period. */
     public function getDtstart(): ?DateTimeImmutable
     {
         $prop = $this->getProperties()->get('DTSTART');
@@ -54,6 +58,7 @@ class Vfreebusy extends AbstractComponent
         return DateTimeParser::parse($prop->getValue(), $prop->getParameter('TZID')?->getValue());
     }
 
+    /** Set the start date/time of the free/busy period. */
     public function setDtstart(DateTimeImmutable $dt, ?string $tzid = null): void
     {
         $params = [];
@@ -63,6 +68,7 @@ class Vfreebusy extends AbstractComponent
         $this->setProperty('DTSTART', DateTimeParser::format($dt, $tzid), $params);
     }
 
+    /** Get the end date/time of the free/busy period. */
     public function getDtend(): ?DateTimeImmutable
     {
         $prop = $this->getProperties()->get('DTEND');
@@ -72,6 +78,7 @@ class Vfreebusy extends AbstractComponent
         return DateTimeParser::parse($prop->getValue(), $prop->getParameter('TZID')?->getValue());
     }
 
+    /** Set the end date/time of the free/busy period. */
     public function setDtend(DateTimeImmutable $dt, ?string $tzid = null): void
     {
         $params = [];
@@ -90,17 +97,20 @@ class Vfreebusy extends AbstractComponent
         );
     }
 
+    /** Add an attendee to this free/busy component. */
     public function addAttendee(Attendee $attendee): void
     {
         $this->getProperties()->addProperty($attendee->getProperty());
     }
 
+    /** Get the organizer of this free/busy request. */
     public function getOrganizer(): ?Organizer
     {
         $prop = $this->getProperties()->get('ORGANIZER');
         return $prop !== null ? new Organizer($prop) : null;
     }
 
+    /** Set the organizer of this free/busy request. */
     public function setOrganizer(Organizer $organizer): void
     {
         $this->removeProperty('ORGANIZER');

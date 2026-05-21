@@ -41,11 +41,13 @@ final readonly class Parameter
         $this->values = array_values($values);
     }
 
+    /** Get the first (or only) parameter value. */
     public function getValue(): string
     {
         return $this->values[0] ?? '';
     }
 
+    /** Whether this parameter has multiple comma-separated values. */
     public function isMultiValue(): bool
     {
         return count($this->values) > 1;

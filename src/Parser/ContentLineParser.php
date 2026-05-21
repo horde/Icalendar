@@ -61,6 +61,7 @@ final class ContentLineParser
         return $this->lexLine($line, $lineNumber, $byteOffset);
     }
 
+    /** Tokenize a single unfolded line into a ContentLine. */
     private function lexLine(string $line, int $lineNumber, int $byteOffset): ContentLine
     {
         $len = strlen($line);
@@ -202,6 +203,7 @@ final class ContentLineParser
         return [$value, $endPos, $errors];
     }
 
+    /** Check whether a string is a valid iCalendar name token. */
     private function isValidName(string $name): bool
     {
         return $name !== '' && strspn($name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-') === strlen($name);

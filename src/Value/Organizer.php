@@ -60,6 +60,7 @@ final class Organizer
         return new self(new Property('ORGANIZER', 'mailto:' . $email, $params));
     }
 
+    /** Get the organizer email address (stripped of mailto: prefix). */
     public function getEmail(): string
     {
         $val = $this->property->getValue();
@@ -69,12 +70,14 @@ final class Organizer
         return $val;
     }
 
+    /** Get the organizer display name (CN parameter). */
     public function getCommonName(): ?string
     {
         $val = $this->property->getParameter('CN')?->getValue();
         return ($val !== null && $val !== '') ? $val : null;
     }
 
+    /** Get the SENT-BY email (the acting user on behalf of the organizer). */
     public function getSentBy(): ?string
     {
         $val = $this->property->getParameter('SENT-BY')?->getValue();
@@ -87,6 +90,7 @@ final class Organizer
         return $val;
     }
 
+    /** Get the schedule agent, defaulting to SERVER. */
     public function getScheduleAgent(): ScheduleAgent
     {
         $raw = $this->property->getParameter('SCHEDULE-AGENT')?->getValue();
@@ -95,21 +99,25 @@ final class Organizer
             : ScheduleAgent::from('SERVER');
     }
 
+    /** Set the organizer display name (CN parameter). */
     public function setCommonName(string $cn): void
     {
         $this->property->setParameter('CN', new Parameter('CN', [$cn]));
     }
 
+    /** Set the SENT-BY email. */
     public function setSentBy(string $email): void
     {
         $this->property->setParameter('SENT-BY', new Parameter('SENT-BY', ['mailto:' . $email]));
     }
 
+    /** Set the schedule agent. */
     public function setScheduleAgent(ScheduleAgent $agent): void
     {
         $this->property->setParameter('SCHEDULE-AGENT', new Parameter('SCHEDULE-AGENT', [$agent->value]));
     }
 
+    /** Get the underlying Property instance. */
     public function getProperty(): Property
     {
         return $this->property;

@@ -53,6 +53,7 @@ final class Property
         $this->group = $group;
     }
 
+    /** Create a Property from a parsed ContentLine. */
     public static function fromContentLine(ContentLine $cl): self
     {
         return new self(
@@ -63,16 +64,19 @@ final class Property
         );
     }
 
+    /** Get the property name (uppercase). */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /** Get the vCard group prefix, or null if absent. */
     public function getGroup(): ?string
     {
         return $this->group;
     }
 
+    /** Get the raw property value string. */
     public function getValue(): string
     {
         return $this->value;
@@ -86,26 +90,31 @@ final class Property
         return $this->parameters;
     }
 
+    /** Get a parameter by name, or null if not present. */
     public function getParameter(string $name): ?Parameter
     {
         return $this->parameters[strtoupper($name)] ?? null;
     }
 
+    /** Check whether a parameter exists by name. */
     public function hasParameter(string $name): bool
     {
         return isset($this->parameters[strtoupper($name)]);
     }
 
+    /** Set the property value. */
     public function setValue(string $value): void
     {
         $this->value = $value;
     }
 
+    /** Set or replace a parameter by name. */
     public function setParameter(string $name, Parameter $param): void
     {
         $this->parameters[strtoupper($name)] = $param;
     }
 
+    /** Remove a parameter by name. */
     public function removeParameter(string $name): void
     {
         unset($this->parameters[strtoupper($name)]);
@@ -139,6 +148,7 @@ final class Property
         return $line;
     }
 
+    /** Determine whether a parameter value requires DQUOTE quoting. */
     private function needsQuoting(string $value): bool
     {
         return $value !== '' && strcspn($value, ':;,') !== strlen($value);

@@ -26,16 +26,19 @@ use Horde\Icalendar\Component\AbstractComponent;
 
 class Vtimezone extends AbstractComponent
 {
+    /** Return the iCalendar component type identifier. */
     public function getType(): string
     {
         return 'VTIMEZONE';
     }
 
+    /** Get the STANDARD sub-component defining standard time rules. */
     public function getStandard(): ?Component
     {
         return $this->getFirstChild('STANDARD');
     }
 
+    /** Get the DAYLIGHT sub-component defining daylight saving time rules. */
     public function getDaylight(): ?Component
     {
         return $this->getFirstChild('DAYLIGHT');
