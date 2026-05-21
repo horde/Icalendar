@@ -49,3 +49,7 @@ dependencies:
       horde/test: ^3
 vendor: horde
 keywords: []
+
+quality:
+  phpstan:
+    level: 9
