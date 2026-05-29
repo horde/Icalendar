@@ -72,6 +72,18 @@
     Add CI job for satis repo update
     no errors
     Development mode for Icalendar-3.0.0alpha5
+3.0.0-RC2:
+  api: 3.0.0-RC2
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-29
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: |-
+    Improve duration calculation with empty value checks
+    chore: Update workflow dependency
 3.0.0-RC1:
   api: 3.0.0-RC1
   state:
