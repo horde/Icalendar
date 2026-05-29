@@ -1585,24 +1585,28 @@ class Horde_Icalendar
         }
 
         // Weeks.
-        $duration = 7 * 86400 * intval($durvalue[3]);
+        $duration = !empty($durvalue[3])
+            ? 7 * 86400 * intval($durvalue[3])
+            : 0;
 
-        if (count($durvalue) > 4) {
+        if (!empty($durvalue[4])) {
             // Days.
             $duration += 86400 * intval($durvalue[4]);
         }
 
-        if (count($durvalue) > 5) {
+        if (!empty($durvalue[5])) {
             // Hours.
-            $duration += 3600 * intval($durvalue[7]);
+            if (!empty($durvalue[7])) {
+                $duration += 3600 * intval($durvalue[7]);
+            }
 
             // Mins.
-            if (isset($durvalue[8])) {
+            if (!empty($durvalue[8])) {
                 $duration += 60 * intval($durvalue[8]);
             }
 
             // Secs.
-            if (isset($durvalue[9])) {
+            if (!empty($durvalue[9])) {
                 $duration += intval($durvalue[9]);
             }
         }
