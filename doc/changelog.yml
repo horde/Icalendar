@@ -1,77 +1,14 @@
 ---
-3.0.0alpha5:
+3.0.0:
   api: 3.0.0
-  state:
-    release: alpha
-    api: alpha
-  date: 2022-11-04
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha4:
-  api: 3.0.0
-  state:
-    release: alpha
-    api: alpha
-  date: 2022-11-04
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [rla] Enable PHP 8.x compat.
-    |+
-3.0.0alpha3:
-  api: 3.0.0
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-03-13
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha2:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-02-24
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha1:
-  api: 3.0.0alpha1
   state:
     release: stable
     api: stable
-  date: 2021-02-24
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix duration export to only export full weeks as nW (Ralf Becker <RalfBecker@outdoor-training.de>, PR #1).
-3.0.0-beta1:
-  api: 3.0.0-beta1
-  state:
-    release: beta
-    api: beta
-  date: 2026-03-15
+  date: 2026-06-27
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    style: apply php-cs-fixer rules
-    Development mode for Icalendar-3.0.0alpha5
-    Released Icalendar-3.0.0alpha4
-    Update metadata and workflows for PHP 8 support
-    Stub of a modernized object tree
-    Complete basic vcard 4.0 implementation and tests
-    Partial implementation of vcard 4.0 and unit test
-    Add CI job for satis repo update
-    no errors
-    Development mode for Icalendar-3.0.0alpha5
+  notes: 'chore: refresh qc fixes and platform deps'
 3.0.0-RC2:
   api: 3.0.0-RC2
   state:
@@ -81,9 +18,7 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    Improve duration calculation with empty value checks
-    chore: Update workflow dependency
+  notes: "Improve duration calculation with empty value checks\nchore: Update workflow dependency"
 3.0.0-RC1:
   api: 3.0.0-RC1
   state:
@@ -93,16 +28,67 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    feat: Implement full RFC 5545 compliance including canonical tests from RFC.
-    docs: Add README.md and UPGRADING.md
-    feat: Implement value objects, enums and a basic reader
-    feat: Recurrence interface and reference implementation wrapping Horde\Date\Recurrence
-    chore: metadata defaults
-    style: ws
-    feat: Foundation of a refactored icalendar/vcard parser/writer in PSR-4
-    test: Update test case ;)
-    Fix php deprecations and update to phpunit 12+
+  notes: "feat: Implement full RFC 5545 compliance including canonical tests from RFC.\ndocs: Add README.md and UPGRADING.md\nfeat: Implement value objects, enums and a basic reader\nfeat: Recurrence interface and reference implementation wrapping Horde\\Date\\Recurrence\nchore: metadata defaults\nstyle: ws\nfeat: Foundation of a refactored icalendar/vcard parser/writer in PSR-4\ntest: Update test case ;)\nFix php deprecations and update to phpunit 12+"
+3.0.0-beta1:
+  api: 3.0.0-beta1
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-15
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "style: apply php-cs-fixer rules\nDevelopment mode for Icalendar-3.0.0alpha5\nReleased Icalendar-3.0.0alpha4\nUpdate metadata and workflows for PHP 8 support\nStub of a modernized object tree\nComplete basic vcard 4.0 implementation and tests\nPartial implementation of vcard 4.0 and unit test\nAdd CI job for satis repo update\nno errors\nDevelopment mode for Icalendar-3.0.0alpha5"
+3.0.0alpha5:
+  api: 3.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2022-11-04
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha4:
+  api: 3.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2022-11-04
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "[rla] Enable PHP 8.x compat.\n|+\n"
+3.0.0alpha3:
+  api: 3.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-03-13
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha2:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-02-24
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha1:
+  api: 3.0.0alpha1
+  state:
+    release: stable
+    api: stable
+  date: 2021-02-24
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "[jan] Fix duration export to only export full weeks as nW (Ralf Becker <RalfBecker@outdoor-training.de>, PR #1).\n"
 2.1.8:
   api: 2.1.0
   state:
@@ -112,8 +98,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix issue that could cause loss of attribute value in iCalendar v1.0 when value is passed as an array.
+  notes: "[mjr] Fix issue that could cause loss of attribute value in iCalendar v1.0 when value is passed as an array.\n"
 2.1.7:
   api: 2.1.0
   state:
@@ -123,8 +108,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix unescaping of commas in ADR, N, and ORG attributes.
+  notes: "[jan] Fix unescaping of commas in ADR, N, and ORG attributes.\n"
 2.1.6:
   api: 2.1.0
   state:
@@ -134,8 +118,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix PHP 5.3 compatibility (Remi Collet <fedora@famillecollet.com>).
+  notes: "[mjr] Fix PHP 5.3 compatibility (Remi Collet <fedora@famillecollet.com>).\n"
 2.1.5:
   api: 2.1.0
   state:
@@ -145,8 +128,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix calculating timezone offsets when parsing vTimezone components.
+  notes: "[mjr] Fix calculating timezone offsets when parsing vTimezone components.\n"
 2.1.4:
   api: 2.1.0
   state:
@@ -156,8 +138,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).
+  notes: "[jan] Update Greek translation (Limperis Antonis <limperis@cti.gr>).\n"
 2.1.3:
   api: 2.1.0
   state:
@@ -167,8 +148,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Mark PHP 7 as supported.
+  notes: "[jan] Mark PHP 7 as supported.\n"
 2.1.2:
   api: 2.1.0
   state:
@@ -178,8 +158,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix cases where incorrect transition times were being returned (Bug #14153).
+  notes: "[mjr] Fix cases where incorrect transition times were being returned (Bug #14153).\n"
 2.1.1:
   api: 2.1.0
   state:
@@ -189,8 +168,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix generated VALARM TRIGGER attributes with empty duration (Ralf Becker <RalfBecker@outdoor-training.de>).
+  notes: "[jan] Fix generated VALARM TRIGGER attributes with empty duration (Ralf Becker <RalfBecker@outdoor-training.de>).\n"
 2.1.0:
   api: 2.1.0
   state:
@@ -200,8 +178,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Add Horde_Icalendar#getAttributeSingle().
+  notes: "[mms] Add Horde_Icalendar#getAttributeSingle().\n"
 2.0.11:
   api: 1.1.0
   state:
@@ -211,8 +188,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix issues with certain locales like Turkish.
+  notes: "[jan] Fix issues with certain locales like Turkish.\n"
 2.0.10:
   api: 1.1.0
   state:
@@ -222,8 +198,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] No longer call code that depends on Horde_Mime, which is not a required dependency.
+  notes: "[mms] No longer call code that depends on Horde_Mime, which is not a required dependency.\n"
 2.0.9:
   api: 1.1.0
   state:
@@ -233,8 +208,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix detecting the current DST rule from certain VTIMEZONE components (Bug #13223).
+  notes: "[jan] Fix detecting the current DST rule from certain VTIMEZONE components (Bug #13223).\n"
 2.0.8:
   api: 1.1.0
   state:
@@ -244,8 +218,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Export VTIMEZONE components only once per TZID (Bug #12988).
+  notes: "[jan] Export VTIMEZONE components only once per TZID (Bug #12988).\n"
 2.0.7:
   api: 1.1.0
   state:
@@ -255,9 +228,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix generating DATE-TIME attributes with timezone information (Bug #12428).
-    [jan] Fix returning multiple attribute properties of the same name (Bug #12329).
+  notes: "[jan] Fix generating DATE-TIME attributes with timezone information (Bug #12428).\n[jan] Fix returning multiple attribute properties of the same name (Bug #12329).\n"
 2.0.6:
   api: 1.1.0
   state:
@@ -267,8 +238,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Remove group identifiers from attribute types (Bug #12329).
+  notes: "[jan] Remove group identifiers from attribute types (Bug #12329).\n"
 2.0.5:
   api: 1.1.0
   state:
@@ -278,8 +248,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix exporting of base64-encoded attribute values.
+  notes: "[jan] Fix exporting of base64-encoded attribute values.\n"
 2.0.4:
   api: 1.1.0
   state:
@@ -289,8 +258,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Improve unit tests.
+  notes: "[jan] Improve unit tests.\n"
 2.0.3:
   api: 1.1.0
   state:
@@ -300,9 +268,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Don't set METHOD property unconditionally (Bug #10741).
-    [jan] Convert test suite to PHPUnit.
+  notes: "[jan] Don't set METHOD property unconditionally (Bug #10741).\n[jan] Convert test suite to PHPUnit.\n"
 2.0.2:
   api: 1.1.0
   state:
@@ -312,8 +278,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+  notes: "[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).\n"
 2.0.1:
   api: 1.1.0
   state:
@@ -323,52 +288,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>).
-2.0.0beta2:
-  api: 1.1.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-08-29
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: ~
-2.0.0beta1:
-  api: 1.1.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-07-19
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First beta release for Horde 5.
-2.0.0alpha1:
-  api: 1.1.0
-  state:
-    release: alpha
-    api: stable
-  date: 2012-07-05
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First alpha release for Horde 5.
-    [mms] Use new Horde_Mail API.
-2.0.0RC1:
-  api: 1.1.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-10-26
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix parsing of VTIMEZONE components that use RDATE properties.
+  notes: "[jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>).\n"
 2.0.0:
   api: 1.1.0
   state:
@@ -378,8 +298,47 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 5.
+  notes: "First stable release for Horde 5.\n"
+2.0.0RC1:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-10-26
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "[jan] Fix parsing of VTIMEZONE components that use RDATE properties.\n"
+2.0.0beta2:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-08-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: null
+2.0.0beta1:
+  api: 1.1.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-07-19
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First beta release for Horde 5.\n"
+2.0.0alpha1:
+  api: 1.1.0
+  state:
+    release: alpha
+    api: stable
+  date: 2012-07-05
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First alpha release for Horde 5.\n[mms] Use new Horde_Mail API.\n"
 1.1.3:
   api: 1.1.0
   state:
@@ -389,7 +348,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: ~
+  notes: null
 1.1.2:
   api: 1.1.0
   state:
@@ -399,8 +358,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Trim UTF-8 BOM from vCal data.
+  notes: "[mms] Trim UTF-8 BOM from vCal data.\n"
 1.1.1:
   api: 1.1.0
   state:
@@ -410,8 +368,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix compatibility with Horde_SyncMl (Bug #10908).
+  notes: "[jan] Fix compatibility with Horde_SyncMl (Bug #10908).\n"
 1.1.0:
   api: 1.1.0
   state:
@@ -421,8 +378,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Allow to pass multiple parameter values in setAttribute() (Bug #7248).
+  notes: "[jan] Allow to pass multiple parameter values in setAttribute() (Bug #7248).\n"
 1.0.5:
   api: 1.0.0
   state:
@@ -432,8 +388,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix generating VTIMEZONE components.
+  notes: "[jan] Fix generating VTIMEZONE components.\n"
 1.0.4:
   api: 1.0.0
   state:
@@ -443,9 +398,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix version access (Bug #10425).
-    [jan] Avoid infinite loop when importing certain vCalendar 1.0/vCard 2.1 data.
+  notes: "[mjr] Fix version access (Bug #10425).\n[jan] Avoid infinite loop when importing certain vCalendar 1.0/vCard 2.1 data.\n"
 1.0.3:
   api: 1.0.0
   state:
@@ -455,8 +408,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix fetching the version from an Icalendar object (Bug #10411).
+  notes: "[mjr] Fix fetching the version from an Icalendar object (Bug #10411).\n"
 1.0.2:
   api: 1.0.0
   state:
@@ -466,9 +418,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.
-    [jan] Update Latvian translation.
+  notes: "[jan] Fix exporting multiline attributes to vCard 2.1 and vCalendar 1.0.\n[jan] Update Latvian translation.\n"
 1.0.1:
   api: 1.0.0
   state:
@@ -478,52 +428,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Speed up exporting of objects with binary content (Bug #9405).
-1.0.0beta1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-16
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First beta release for Horde 4.
-1.0.0alpha1:
-  api: 1.0.0
-  state:
-    release: alpha
-    api: alpha
-  date: 2011-03-08
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First alpha release for Horde 4.
-1.0.0RC2:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-29
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Second release candidate for Horde 4.
-1.0.0RC1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-22
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First release candidate for Horde 4.
+  notes: "[jan] Speed up exporting of objects with binary content (Bug #9405).\n"
 1.0.0:
   api: 1.0.0
   state:
@@ -533,8 +438,47 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 4.
+  notes: "First stable release for Horde 4.\n"
+1.0.0RC2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Second release candidate for Horde 4.\n"
+1.0.0RC1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First release candidate for Horde 4.\n"
+1.0.0beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-16
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First beta release for Horde 4.\n"
+1.0.0alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2011-03-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First alpha release for Horde 4.\n"
 0.1.0:
   api: 0.1.0
   state:
@@ -544,40 +488,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Fix vFreebusy merging (Bug #4807).
-    Implement handling of vTimezones in iCalendar data (lists-horde@carlthompson.net, Bug #4399).
-    Correctly produce vcard parameters without value, like "ADR;WORK:...".
-    Support departments in vCard's ORG properties (martin@matuska.org, Bug #4285).
-    Fixed _parseDateTime() (wrobel@pardus.de, Bug #4808).
-    Fix exporting of recurring exceptions (Bug #4627).
-    Use lowercase mailto: for better Apple iCal compatibility.
-    We must *not* escape colons per RFC in param values.
-    Fix encoding issues with iCalendar 2.0 exports.
-    Move version specific vCalendar/iCalendar export to Kronolith_Event.
-    Use QUOTED-PRINTABLE when there's a newline in VNOTE data.
-    Anniversary support (ntai@smartfruit.com, Request #5059).
-    Support for all day events with VCALENDAR 1.0.
-    Use ISO-8559-1 as default vCalendar 1.0 and vCard 2.1.
-    Fix unreliably overwriting a variable with itself (rsalmon@mbpgroup.com, Bug #5652).
-    Handle AALARM data with parameters (delimited by a ";").
-    Fix GEO parsing and generation.
-    Refactor line folding and quoted-printable encoding.
-    Add missing softline break (Bug #6541).
-    Don't require a newline after END (Bug #6641, #6706).
-    Fix detecting of "old" formats when parsing vCalendar/vCard data.
-    Request charset on the fly, because it depends on the VERSION property.
-    Fix passing value arrays with only one element.
-    Correctly parse quoted parameters (Bug #7031)
-    Set the correct version if none provided through the vcard data.
-    BODY is not required, but N is, and FN for vcard3.0.
-    Return the passed address unmodified if Mail_RFC822::validateMailbox() fails.
-    Fixed importing of several events at once.
-    Removed required calendar component properties in vevent.php.
-    Fix generation of UIDs with PHP 5.2+.
-    Fix generation of free periods with overlapping events (cedric.parent@multitel.be).
-    Add support for extended vfreebusy parameters (wrobel@gentoo.org, Request #4690).
-    Ensure vnotes and vcards are created with a valid default version number.
+  notes: "Fix vFreebusy merging (Bug #4807).\nImplement handling of vTimezones in iCalendar data (lists-horde@carlthompson.net, Bug #4399).\nCorrectly produce vcard parameters without value, like \"ADR;WORK:...\".\nSupport departments in vCard's ORG properties (martin@matuska.org, Bug #4285).\nFixed _parseDateTime() (wrobel@pardus.de, Bug #4808).\nFix exporting of recurring exceptions (Bug #4627).\nUse lowercase mailto: for better Apple iCal compatibility.\nWe must *not* escape colons per RFC in param values.\nFix encoding issues with iCalendar 2.0 exports.\nMove version specific vCalendar/iCalendar export to Kronolith_Event.\nUse QUOTED-PRINTABLE when there's a newline in VNOTE data.\nAnniversary support (ntai@smartfruit.com, Request #5059).\nSupport for all day events with VCALENDAR 1.0.\nUse ISO-8559-1 as default vCalendar 1.0 and vCard 2.1.\nFix unreliably overwriting a variable with itself (rsalmon@mbpgroup.com, Bug #5652).\nHandle AALARM data with parameters (delimited by a \";\").\nFix GEO parsing and generation.\nRefactor line folding and quoted-printable encoding.\nAdd missing softline break (Bug #6541).\nDon't require a newline after END (Bug #6641, #6706).\nFix detecting of \"old\" formats when parsing vCalendar/vCard data.\nRequest charset on the fly, because it depends on the VERSION property.\nFix passing value arrays with only one element.\nCorrectly parse quoted parameters (Bug #7031)\nSet the correct version if none provided through the vcard data.\nBODY is not required, but N is, and FN for vcard3.0.\nReturn the passed address unmodified if Mail_RFC822::validateMailbox() fails.\nFixed importing of several events at once.\nRemoved required calendar component properties in vevent.php.\nFix generation of UIDs with PHP 5.2+.\nFix generation of free periods with overlapping events (cedric.parent@multitel.be).\nAdd support for extended vfreebusy parameters (wrobel@gentoo.org, Request #4690).\nEnsure vnotes and vcards are created with a valid default version number.\n"
 0.0.3:
   api: 0.0.3
   state:
@@ -587,8 +498,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Converted to package.xml 2.0 for pear.horde.org.
+  notes: "Converted to package.xml 2.0 for pear.horde.org.\n"
 0.0.2:
   api: 0.0.2
   state:
@@ -598,8 +508,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Lots of improvements, bugfixes and support for more fields and members of the iCalendar family.
+  notes: "Lots of improvements, bugfixes and support for more fields and members of the iCalendar family.\n"
 0.0.1:
   api: 0.0.1
   state:
@@ -609,5 +518,4 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Initial release as a PEAR package
+  notes: "Initial release as a PEAR package\n"
